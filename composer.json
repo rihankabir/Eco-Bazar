@@ -1,0 +1,17 @@
+{
+    "name": "rihan/ecomart",
+    "autoload": {
+        "psr-4": {
+            "Rihan\\Ecomart\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Md.Rihanul Kabir",
+            "email": "rihankabir006@gmail.com"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^7.1"
+    }
+}
