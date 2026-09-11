@@ -1,1 +1,7 @@
 /vendor/
+/.env
+
+/config/database.php
+/config/mail.php
+
+/assets/uploads/
