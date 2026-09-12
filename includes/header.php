@@ -18,16 +18,10 @@ $page_title = $page_title ?? APP_NAME;
         <?= e($page_title); ?>
     </title>
 
-    <link
-        rel="stylesheet"
-        href="<?= url('assets/css/bootstrap.min.css'); ?>"
-    >
-
-    <link
-        rel="stylesheet"
-        href="<?= url('assets/css/style.css'); ?>"
-    >
+    <link rel="stylesheet" href="/Ecomart/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="/Ecomart/assets/css/style.css">
 
 </head>
 
 <body>
+    <?php require_once __DIR__ . '/navbar.php'; ?>
