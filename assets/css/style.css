@@ -1,0 +1,12 @@
+.LINE {
+    display:flex;
+    justify-content:center;
+    width: 1px;
+    height: 20px;
+    background-color: rgb(227, 231, 230);
+    margin: 9px 15px;
+}
+.topnavtext{
+    margin: 0;
+    padding: 0;
+}
