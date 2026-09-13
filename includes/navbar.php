@@ -99,4 +99,105 @@
 
     </div>
 
+
+
 </nav>
+<!-- Bottom Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark bottom-nav">
+
+    <div class="container">
+
+        <!-- Toggle Button -->
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#bottomNavbar"
+            aria-controls="bottomNavbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Left Navigation -->
+        <div class="collapse navbar-collapse bg-dark" id="bottomNavbar">
+
+            <ul class="navbar-nav">
+
+                <!-- Dropdown 1 -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        Home
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Home 1</a></li>
+                        <li><a class="dropdown-item" href="#">Home 2</a></li>
+                    </ul>
+                </li>
+
+                <!-- Dropdown 2 -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        Shop
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Shop</a></li>
+                        <li><a class="dropdown-item" href="#">Shop Details</a></li>
+                    </ul>
+                </li>
+
+                <!-- Dropdown 3 -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        Pages
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">About</a></li>
+                        <li><a class="dropdown-item" href="#">Contact Us</a></li>
+                    </ul>
+                </li>
+
+                <!-- Dropdown 4 -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        Blog
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Blog</a></li>
+                        <li><a class="dropdown-item" href="#">Blog Details</a></li>
+                    </ul>
+                </li>
+
+                <!-- Normal Page 1 -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/Ecomart/about.php">
+                        About Us
+                    </a>
+                </li>
+
+                <!-- Normal Page 2 -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/Ecomart/contact.php">
+                        Contact
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <!-- Right Side Phone -->
+        <a href="tel:+1234567890" class="phone-number text-decoration-none">
+            <i class="bi bi-telephone"></i>
+            <span>+1 234 567 890</span>
+        </a>
+
+    </div>
+
+</nav>
+<!-- Bottom Navigation Ends -->

@@ -28,6 +28,7 @@
     width: 24px;
     height: 24px;
     display: inline-block;
+    color:black !important;
 }
 .search-input-wrapper {
     position: relative;
