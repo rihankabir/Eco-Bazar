@@ -45,7 +45,7 @@
 <nav class="navbar navbar-expand-lg ">
 
     <div class="container">
-
+        
         <a class="navbar-brand" href="/Ecomart/">
             <?= e(APP_NAME); ?>
         </a>
@@ -66,7 +66,7 @@
                     class="text-decoration-none"
                 >
                     <img src="/Ecomart/assets/images/icons/Bag.png"class="position-relative">
-                    <span class="badge rounded-pill bg-primary position-absolute">
+                    <span class="badge rounded-pill bg-success cart-count-icon">
                         0
                     </span>
 
