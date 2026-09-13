@@ -23,8 +23,37 @@
   font-weight: 700;
   font-style: normal;
 }
-.wishlist-icon{
-    width: 32px;
-    height: 32px;
-    color: black;
+.wishlist-icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+}
+.search-input-wrapper {
+    position: relative;
+}
+
+.search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+.search-input-wrapper .form-control {
+    padding-left: 42px;
+    border-radius: 5px 0 0 5px;
+}
+
+.search-btn {
+    border-radius: 0 5px 5px 0;
+    background-color: green;
+    color: azure;
+}
+.search-btn:hover{
+    background-color: palegreen;
+}
+.search-btn:active{
+background-color: aqua  !important;
 }
