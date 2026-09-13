@@ -58,3 +58,380 @@
 .search-btn:active{
 background-color: aqua  !important;
 }
+.top-nav-content {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.topnavtext {
+    margin: 0;
+}
+/* =========================
+   TOP NAVIGATION
+========================= */
+
+.top-nav-content {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.topnavtext {
+    margin: 0;
+}
+
+.LINE {
+    width: 1px;
+    height: 20px;
+    background-color: aquamarine;
+    margin: 0 15px;
+}
+
+
+/* =========================
+   MAIN NAVIGATION
+========================= */
+
+.main-navbar {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.main-navbar .navbar-brand img {
+    max-width: 100%;
+    height: auto;
+}
+
+
+/* =========================
+   SEARCH BAR
+========================= */
+
+.search-input-wrapper {
+    position: relative;
+}
+
+.search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+.search-input-wrapper .form-control {
+    padding-left: 42px;
+    border-radius: 5px 0 0 5px;
+}
+
+.search-btn {
+    background-color: #198754;
+    color: white;
+    border: 1px solid #198754;
+    border-radius: 0 5px 5px 0;
+}
+
+.search-btn:hover {
+    background-color: #157347;
+    color: white;
+}
+
+.search-btn:active,
+.search-btn:focus {
+    background-color: #146c43 !important;
+    color: white !important;
+    border-color: #146c43 !important;
+}
+
+
+/* =========================
+   WISHLIST
+========================= */
+
+.wishlist-link {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wishlist-icon {
+    font-size: 24px;
+}
+
+
+/* =========================
+   CART
+========================= */
+
+.cart-image {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.cart-count-icon {
+    font-size: 11px;
+}
+
+.shopping-text-count {
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-text {
+    font-size: 12px;
+}
+
+.cart-number {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+/* =========================
+   BOTTOM NAVIGATION
+========================= */
+
+.bottom-nav {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.bottom-nav .nav-link {
+    color: white;
+    padding: 10px 18px;
+}
+
+.bottom-nav .nav-link:hover {
+    color: white;
+}
+
+.phone-number {
+    white-space: nowrap;
+}
+
+.phone-number i {
+    margin-right: 5px;
+}
+
+
+/* =========================
+   MOBILE
+   MAX WIDTH: 575.98px
+========================= */
+
+@media (max-width: 575.98px) {
+
+    /* -------------------------
+       TOP NAV
+    ------------------------- */
+
+    .top-nav-content {
+        flex-direction: column;
+        gap: 5px;
+        text-align: center;
+    }
+
+    .topnavtext {
+        font-size: 12px;
+        width: 100%;
+    }
+
+    .dmenu {
+        width: 100%;
+        justify-content: center !important;
+        flex-wrap: wrap;
+    }
+
+    .dmenu .dropdown .btn {
+        font-size: 13px;
+        padding: 4px 8px;
+    }
+
+    .LINE {
+        margin: 0 8px;
+    }
+
+
+    /* -------------------------
+       MAIN NAV
+    ------------------------- */
+
+    .main-navbar {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .main-navbar .container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    /* Logo */
+
+    .navbar-brand {
+        margin-right: 0;
+    }
+
+    .navbar-brand img {
+        width: 120px;
+        height: auto;
+    }
+
+
+    /* Wishlist + Cart */
+
+    .main-navbar .container > .d-flex.align-items-center.gap-3 {
+        margin-left: auto;
+        gap: 10px !important;
+    }
+
+    .wishlist-icon {
+        font-size: 21px;
+    }
+
+    .cart-image {
+        width: 27px;
+        height: 27px;
+    }
+
+    .shopping-text-count {
+        display: none;
+    }
+
+
+    /* -------------------------
+       SEARCH BAR MOBILE
+    ------------------------- */
+
+    .search-form {
+        order: 3;
+        display: flex !important;
+
+        width: 100%;
+        max-width: 100%;
+        flex: 0 0 100%;
+
+        margin: 5px 0 0 0;
+    }
+
+    .search-input-wrapper {
+        flex: 1 1 auto;
+        width: 100%;
+        min-width: 0;
+    }
+
+    .search-input-wrapper .form-control {
+        width: 100%;
+        min-width: 0;
+
+        height: 42px;
+
+        padding-left: 40px;
+
+        font-size: 14px;
+
+        border-radius: 5px 0 0 5px;
+    }
+
+    .search-btn {
+        flex: 0 0 auto;
+
+        height: 42px;
+
+        padding: 0 14px;
+
+        font-size: 14px;
+
+        border-radius: 0 5px 5px 0;
+    }
+
+
+    /* -------------------------
+       BOTTOM NAV MOBILE
+    ------------------------- */
+
+    .bottom-nav .container {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    /* Hamburger fully right */
+
+    .bottom-nav .navbar-toggler {
+        margin-left: auto !important;
+    }
+
+    /* Dropdown menu */
+
+    .bottom-nav .navbar-collapse {
+        width: 100%;
+        flex-basis: 100%;
+
+        margin-top: 8px;
+    }
+
+    .bottom-nav .navbar-nav {
+        width: 100%;
+        align-items: flex-start;
+    }
+
+    .bottom-nav .nav-link {
+        padding: 9px 0;
+    }
+
+    /* Phone */
+
+    .phone-number {
+        margin-left: 10px;
+        font-size: 13px;
+    }
+
+    .phone-number i {
+        font-size: 16px;
+    }
+
+}
+
+
+/* =========================
+   EXTRA SMALL DEVICES
+   MAX WIDTH: 375px
+========================= */
+
+@media (max-width: 375px) {
+
+    .navbar-brand img {
+        width: 105px;
+    }
+
+    .main-navbar .container > .d-flex.align-items-center.gap-3 {
+        gap: 7px !important;
+    }
+
+    .wishlist-icon {
+        font-size: 19px;
+    }
+
+    .cart-image {
+        width: 25px;
+        height: 25px;
+    }
+
+    .search-btn {
+        padding: 0 11px;
+        font-size: 13px;
+    }
+
+    .search-input-wrapper .form-control {
+        font-size: 13px;
+    }
+
+    .phone-number {
+        font-size: 12px;
+    }
+
+}

@@ -42,7 +42,7 @@
     </div>
 </div>
 <!--Topnav ends -->
-<nav class="navbar navbar-expand-lg ">
+<nav class="navbar navbar-expand-lg main-navbar">
 
     <div class="container">
         
@@ -109,7 +109,7 @@
 
         <!-- Toggle Button -->
         <button
-            class="navbar-toggler"
+            class="navbar-toggler ms-auto"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#bottomNavbar"
@@ -192,9 +192,9 @@
         </div>
 
         <!-- Right Side Phone -->
-        <a href="tel:+1234567890" class="phone-number text-decoration-none">
+        <a href="tel:+1234567890" class="phone-number text-white text-decoration-none">
             <i class="bi bi-telephone"></i>
-            <span>+1 234 567 890</span>
+            <span>(219) 555-0114</span>
         </a>
 
     </div>
