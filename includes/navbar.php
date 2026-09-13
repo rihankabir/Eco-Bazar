@@ -58,7 +58,7 @@
       </form>
 
             <div class="d-flex align-items-center gap-3">
-                <a href="/Ecomart/account/index.php?tab=wishlist"><i class="bi bi-heart"></i></a>
+                <a href="/Ecomart/account/index.php?tab=wishlist"><i class="bi bi-heart wishlist-icon"></i></a>
 
                 <div class="LINE"></div>
                 <a
@@ -74,7 +74,7 @@
 
               <div class="shopping-text-count  justify-content-center align-items-center">
                 <p class="cart-text p-0 m-0">Shopping cart:</p>
-                <p class="cart-number p-0 m-0">$57</p>
+                <p class="cart-number p-0 m-0 text-bold text-dark">$57.00</p>
               </div>
 
             </div>
