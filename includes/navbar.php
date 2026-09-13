@@ -65,14 +65,17 @@
                     href="/Ecomart/cart.php"
                     class="text-decoration-none"
                 >
-                    <img src="/Ecomart/assets/images/icons/Bag.png"class="position-relative">
+                    <img src="/Ecomart/assets/images/icons/Bag.png"class="position-relative cart-image">
                     <span class="badge rounded-pill bg-success cart-count-icon position-absolute top-10 start-10">
                         0
                     </span>
 
                 </a>
 
-              
+              <div class="shopping-text-count  justify-content-center align-items-center">
+                <p class="cart-text p-0 m-0">Shopping cart:</p>
+                <p class="cart-number p-0 m-0">$57</p>
+              </div>
 
             </div>
 

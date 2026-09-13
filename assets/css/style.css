@@ -13,3 +13,7 @@
 .cart-count-icon{
    transform: translate(-75%, -23%) !important;
 }
+.cart-image img{
+    width:34px;
+    height:34px;
+}
