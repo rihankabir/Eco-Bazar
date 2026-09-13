@@ -47,7 +47,8 @@
     <div class="container">
         
         <a class="navbar-brand" href="/Ecomart/">
-            <?= e(APP_NAME); ?>
+            
+            <img src="assets/images/logo/ecobazar-logo.png">
         </a>
 
         
