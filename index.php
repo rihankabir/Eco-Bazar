@@ -76,10 +76,7 @@ require_once __DIR__ . '/includes/header.php';
 
                         </div>
 
-                        <img
-                            src="assets/images/hero/hero-banner-two.png"
-                            alt="Summer Sale"class
-                        >
+                        
 
                     </div>
 

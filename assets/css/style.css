@@ -646,6 +646,8 @@ background-color: aqua  !important;
     height: 288px;
 border-radius:10px;
     background: #f5f5f3;
+        background-image: url("../../assets/images/hero/hero-banner-two.png");
+
 }
 
 
@@ -721,10 +723,10 @@ border-radius:10px;
     right: -5px;
     bottom: 0;
 
-    width: 58%;
-    height: 90%;
+    width: 100%;
+   
 
-    object-fit: contain;
+    object-fit: cover;
 
     z-index: 2;
 }
