@@ -3,110 +3,120 @@ $page_title = 'Home';
 
 require_once __DIR__ . '/includes/header.php';
 ?>
+<!-- =========================
+     HERO / BANNER SECTION
+========================= -->
+<section class="hero-section">
+    <div class="container px-0">
+        <div class="row g-4">
 
-<div class="container py-5">
+            <!-- LEFT MAIN BANNER -->
+            <div class="col-lg-8">
+                <div class="main-banner">
 
-    <div class="p-5 mb-4 bg-light rounded-3">
+                    <!-- Banner Text -->
+                    <div class="main-banner-content">
 
-        <div class="container-fluid py-5">
+                        <h1>
+                            Fresh &amp; Healthy<br>
+                            Organic Food
+                        </h1>
 
-            <h1 class="display-5 fw-bold">
-                Welcome to EcoBazar
-            </h1>
+                        <div class="sale-info">
+                            <div class="sale-text">
+                                Sale up to
+                                <span>30% OFF</span>
+                            </div>
 
-            <p class="col-md-8 fs-4">
-                Your production ecommerce website is working.
-            </p>
+                            <p>Free shipping on all your order.</p>
+                        </div>
 
-            <button
-                type="button"
-                class="btn btn-primary btn-lg"
-                id="testButton"
-            >
-                Test JavaScript
-            </button>
+                        <a href="#" class="shop-btn">
+                            Shop now
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+                    <!-- Woman Image -->
+                    <img
+                        src="assets/images/hero/hero-banner-image.png"
+                        alt="Fresh Organic Food"
+                        class="main-banner-image"
+                    >
+
+                </div>
+            </div>
+
+
+            <!-- RIGHT BANNERS -->
+            <div class="col-lg-4">
+
+                <div class="right-banners">
+
+                    <!-- TOP RIGHT BANNER -->
+                    <div class="small-banner summer-banner">
+
+                        <div class="summer-content">
+
+                            <span class="small-title">
+                                SUMMER SALE
+                            </span>
+
+                            <h2>75% OFF</h2>
+
+                            <p>
+                                Only Fruit &amp; Vegetable
+                            </p>
+
+                            <a href="#">
+                                Shop Now
+                                <i class="bi bi-arrow-right"></i>
+                            </a>
+
+                        </div>
+
+                        <img
+                            src="assets/images/summer-sale.png"
+                            alt="Summer Sale"
+                        >
+
+                    </div>
+
+
+                    <!-- BOTTOM RIGHT BANNER -->
+                    <div class="small-banner deal-banner">
+
+                        <div class="deal-overlay"></div>
+
+                        <div class="deal-content">
+
+                            <span class="small-title">
+                                BEST DEAL
+                            </span>
+
+                            <h2>
+                                Special Products<br>
+                                Deal of the Month
+                            </h2>
+
+                            <a href="#">
+                                Shop Now
+                                <i class="bi bi-arrow-right"></i>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
-
     </div>
+</section>
 
-    <div class="row g-4">
-
-        <div class="col-md-4">
-
-            <div class="card h-100">
-
-                <div class="card-body">
-
-                    <h5 class="card-title">
-                        Bootstrap
-                    </h5>
-
-                    <p class="card-text">
-                        If this card is styled correctly, Bootstrap CSS is working.
-                    </p>
-
-                    <span class="badge bg-success">
-                        CSS Working
-                    </span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="col-md-4">
-
-            <div class="card h-100">
-
-                <div class="card-body">
-
-                    <h5 class="card-title">
-                        PHP
-                    </h5>
-
-                    <p class="card-text">
-                        <?= e(APP_NAME); ?> PHP configuration is working.
-                    </p>
-
-                    <span class="badge bg-success">
-                        PHP Working
-                    </span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="col-md-4">
-
-            <div class="card h-100">
-
-                <div class="card-body">
-
-                    <h5 class="card-title">
-                        JavaScript
-                    </h5>
-
-                    <p class="card-text" id="jsMessage">
-                        Click the button above to test JavaScript.
-                    </p>
-
-                    <span class="badge bg-secondary">
-                        Waiting
-                    </span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
 
 <?php
 
