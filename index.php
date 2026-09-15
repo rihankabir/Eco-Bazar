@@ -1,7 +1,24 @@
 <?php
 $page_title = 'Home';
-
+require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/includes/header.php';
+
+
+//for categories//
+$stmt = $pdo->prepare("
+    SELECT
+        id,
+        name,
+        slug,
+        image
+    FROM categories
+    WHERE status = 'active'
+    ORDER BY id ASC
+");
+
+$stmt->execute();
+
+$categories = $stmt->fetchAll();
 ?>
 <!-- =========================
      HERO / BANNER SECTION
@@ -182,6 +199,79 @@ require_once __DIR__ . '/includes/header.php';
         </div> 
     </div> 
 </section>
+<!--categories section-->
+<div class="container py-5">
+
+    <div class="text-center d-flex justify-content-between mb-5">
+
+        <h1>
+            Popular Categories
+        </h1>
+
+        <p class="text">
+        <a href=""></a>
+        </p>
+
+    </div>
+
+
+    <div class="row g-4">
+
+        <?php if (!empty($categories)): ?>
+
+            <?php foreach ($categories as $category): ?>
+
+                <div class="col-6 col-md-4 col-lg-3">
+
+                    <a
+                        href="/ecommerce/products.php?category=<?= urlencode($category['slug']); ?>"
+                        class="text-decoration-none text-dark"
+                    >
+
+                        <div class="card h-100 text-center">
+
+                            <?php if (!empty($category['image'])): ?>
+
+                                <img
+                                    src="/ecommerce/assets/uploads/categories/<?= e($category['image']); ?>"
+                                    class="card-img-top"
+                                    alt="<?= e($category['name']); ?>"
+                                >
+
+                            <?php endif; ?>
+
+                            <div class="card-body">
+
+                                <h5 class="card-title mb-0">
+                                    <?= e($category['name']); ?>
+                                </h5>
+
+                            </div>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+            <?php endforeach; ?>
+
+        <?php else: ?>
+
+            <div class="col-12">
+
+                <div class="alert alert-info text-center">
+                    No categories found.
+                </div>
+
+            </div>
+
+        <?php endif; ?>
+
+    </div>
+
+</div>
+
 
 <?php
 
