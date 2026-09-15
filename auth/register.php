@@ -5,6 +5,116 @@ $page_title = 'Create Account';
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../includes/header.php';
 
+$error = '';
+$success = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $first_name = trim($_POST['first_name'] ?? '');
+    $last_name = trim($_POST['last_name'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $password = $_POST['password'] ?? '';
+    $confirm_password = $_POST['confirm_password'] ?? '';
+
+    /*
+    |--------------------------------------------------------------------------
+    | Validation
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        $first_name === '' ||
+        $last_name === '' ||
+        $email === '' ||
+        $password === '' ||
+        $confirm_password === ''
+    ) {
+
+        $error = 'All fields are required.';
+
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+
+        $error = 'Please enter a valid email address.';
+
+    } elseif ($password !== $confirm_password) {
+
+        $error = 'Passwords do not match.';
+
+    } elseif (strlen($password) < 8) {
+
+        $error = 'Password must be at least 8 characters.';
+
+    } else {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Check existing email
+        |--------------------------------------------------------------------------
+        */
+
+        $stmt = $pdo->prepare("
+            SELECT id
+            FROM users
+            WHERE email = ?
+            LIMIT 1
+        ");
+
+        $stmt->execute([$email]);
+
+        $existing_user = $stmt->fetch();
+
+        if ($existing_user) {
+
+            $error = 'An account with this email already exists.';
+
+        } else {
+
+            /*
+            |--------------------------------------------------------------------------
+            | Hash password
+            |--------------------------------------------------------------------------
+            */
+
+            $hashed_password = password_hash(
+                $password,
+                PASSWORD_DEFAULT
+            );
+
+            /*
+            |--------------------------------------------------------------------------
+            | Create user
+            |--------------------------------------------------------------------------
+            */
+
+            $stmt = $pdo->prepare("
+                INSERT INTO users
+                (
+                    first_name,
+                    last_name,
+                    email,
+                    password
+                )
+                VALUES
+                (
+                    ?,
+                    ?,
+                    ?,
+                    ?
+                )
+            ");
+
+            $stmt->execute([
+                $first_name,
+                $last_name,
+                $email,
+                $hashed_password
+            ]);
+
+            $success = 'Account created successfully. You can now sign in.';
+        }
+    }
+}
+
 ?>
 
 <div class="container py-5">
@@ -21,13 +131,32 @@ require_once __DIR__ . '/../includes/header.php';
                         Create Account
                     </h2>
 
+                    <?php if ($error !== ''): ?>
+
+                        <div class="alert alert-danger">
+                            <?= e($error); ?>
+                        </div>
+
+                    <?php endif; ?>
+
+                    <?php if ($success !== ''): ?>
+
+                        <div class="alert alert-success">
+                            <?= e($success); ?>
+                        </div>
+
+                    <?php endif; ?>
+
                     <form method="POST" action="">
 
                         <div class="row">
 
                             <div class="col-md-6 mb-3">
 
-                                <label for="first_name" class="form-label">
+                                <label
+                                    for="first_name"
+                                    class="form-label"
+                                >
                                     First Name
                                 </label>
 
@@ -36,6 +165,7 @@ require_once __DIR__ . '/../includes/header.php';
                                     name="first_name"
                                     id="first_name"
                                     class="form-control"
+                                    value="<?= e($_POST['first_name'] ?? ''); ?>"
                                     required
                                 >
 
@@ -43,7 +173,10 @@ require_once __DIR__ . '/../includes/header.php';
 
                             <div class="col-md-6 mb-3">
 
-                                <label for="last_name" class="form-label">
+                                <label
+                                    for="last_name"
+                                    class="form-label"
+                                >
                                     Last Name
                                 </label>
 
@@ -52,6 +185,7 @@ require_once __DIR__ . '/../includes/header.php';
                                     name="last_name"
                                     id="last_name"
                                     class="form-control"
+                                    value="<?= e($_POST['last_name'] ?? ''); ?>"
                                     required
                                 >
 
@@ -61,7 +195,10 @@ require_once __DIR__ . '/../includes/header.php';
 
                         <div class="mb-3">
 
-                            <label for="email" class="form-label">
+                            <label
+                                for="email"
+                                class="form-label"
+                            >
                                 Email Address
                             </label>
 
@@ -70,6 +207,7 @@ require_once __DIR__ . '/../includes/header.php';
                                 name="email"
                                 id="email"
                                 class="form-control"
+                                value="<?= e($_POST['email'] ?? ''); ?>"
                                 required
                             >
 
@@ -77,7 +215,10 @@ require_once __DIR__ . '/../includes/header.php';
 
                         <div class="mb-3">
 
-                            <label for="password" class="form-label">
+                            <label
+                                for="password"
+                                class="form-label"
+                            >
                                 Password
                             </label>
 
@@ -93,7 +234,10 @@ require_once __DIR__ . '/../includes/header.php';
 
                         <div class="mb-3">
 
-                            <label for="confirm_password" class="form-label">
+                            <label
+                                for="confirm_password"
+                                class="form-label"
+                            >
                                 Confirm Password
                             </label>
 
@@ -109,7 +253,6 @@ require_once __DIR__ . '/../includes/header.php';
 
                         <button
                             type="submit"
-                            name="register"
                             class="btn btn-primary w-100"
                         >
                             Create Account
