@@ -113,29 +113,75 @@ require_once __DIR__ . '/includes/header.php';
         </div>
     </div>
 </section>
-<section class="brand">
-    <div class="container">
-        <div class="row">
-            <div class="brand-sec shadow">
-<div class="col-lg-3">
-<div class="box d-flex justify-content-center align-items-center">
-<div class="box-icon me-4">
-    <img src="assets/images/logo/truck.png"class="box-image img-fluid">
-</div>
-<div class="box-text">
-    <p class="main-text p-0 m-0">Free Shipping</p>
-    <p class="sub-text p-0 m-0">Free shipping on all your order</p>
-</div>
+<section class="brand"> 
+    <div class="container"> 
+        <div class="row"> 
+            <div class="brand-sec shadow row g-4"> 
+
+                <div class="col-lg-3 col-12 col-sm-6 col-md-6"> 
+                    <div class="box d-flex justify-content-center align-items-center"> 
+                        <div class="box-icon me-3"> 
+                            <img src="assets/images/logo/truck.png" class="box-image img-fluid"> 
+                        </div> 
+                        <div class="box-text"> 
+                            <p class="main-text p-0 m-0">Free Shipping</p> 
+                            <p class="sub-text p-0 m-0">Free shipping on all your order</p> 
+                        </div> 
+                    </div> 
+                </div> 
 
 
-</div>
-</div>
-<!---->
-            </div>
-        </div>
-    </div>
+                <!----> 
+                <!--second box--> 
+
+                <div class="col-lg-3 col-12 col-sm-6 col-md-6"> 
+                    <div class="box d-flex justify-content-center align-items-center"> 
+                        <div class="box-icon me-3"> 
+                            <img src="assets/images/logo/headphone.png" class="box-image img-fluid"> 
+                        </div> 
+                        <div class="box-text"> 
+                            <p class="main-text p-0 m-0">Customer Support 24/7</p> 
+                            <p class="sub-text p-0 m-0">Instant access to Support</p> 
+                        </div> 
+                    </div> 
+                </div> 
+
+
+                <!----> 
+                <!--third box--> 
+
+                <div class="col-lg-3 col-12 col-sm-6 col-md-6"> 
+                    <div class="box d-flex justify-content-center align-items-center"> 
+                        <div class="box-icon me-3"> 
+                            <img src="assets/images/logo/pay.png" class="box-image img-fluid"> 
+                        </div> 
+                        <div class="box-text"> 
+                            <p class="main-text p-0 m-0">100% Secure Payment</p> 
+                            <p class="sub-text p-0 m-0">We ensure your money is safe</p> 
+                        </div> 
+                    </div> 
+                </div> 
+
+
+                <!----> 
+                <!--fourth box--> 
+
+                <div class="col-lg-3 col-12 col-sm-6 col-md-6"> 
+                    <div class="box d-flex justify-content-center align-items-center"> 
+                        <div class="box-icon me-3"> 
+                            <img src="assets/images/logo/package.png" class="box-image img-fluid"> 
+                        </div> 
+                        <div class="box-text"> 
+                            <p class="main-text p-0 m-0">Money-Back Guarantee</p> 
+                            <p class="sub-text p-0 m-0">30 Days Money-Back Guarantee</p> 
+                        </div> 
+                    </div> 
+                </div> 
+
+            </div> 
+        </div> 
+    </div> 
 </section>
-
 
 <?php
 
