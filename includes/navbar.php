@@ -48,7 +48,7 @@
         
         <a class="navbar-brand" href="/Ecomart/">
             
-            <img src="assets/images/logo/ecobazar-logo.png">
+            <img src="/Ecomart/assets/images/logo/ecobazar-logo.png">
         </a>
 
         
