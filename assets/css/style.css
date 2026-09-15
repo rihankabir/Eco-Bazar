@@ -995,7 +995,19 @@ border-radius:10px;
      padding-top: 50px;
     padding-bottom: 50px;
 }
-.box-image{
+.box-icon img{
     height: 40px;
     width: 40px;
+}
+.main-text{
+    font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: black;
+}
+.sub-text{
+     font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: gray;
 }

@@ -120,7 +120,7 @@ require_once __DIR__ . '/includes/header.php';
 <div class="col-lg-3">
 <div class="box d-flex justify-content-center align-items-center">
 <div class="box-icon me-4">
-    <img src="assets/images/logo/truck.png"class="box-image">
+    <img src="assets/images/logo/truck.png"class="box-image img-fluid">
 </div>
 <div class="box-text">
     <p class="main-text p-0 m-0">Free Shipping</p>
