@@ -113,6 +113,28 @@ require_once __DIR__ . '/includes/header.php';
         </div>
     </div>
 </section>
+<section class="brand">
+    <div class="container">
+        <div class="row">
+            <div class="brand-sec shadow">
+<div class="col-lg-3">
+<div class="box d-flex justify-content-center align-items-center">
+<div class="box-icon me-4">
+    <img src="assets/images/logo/truck.png"class="box-image">
+</div>
+<div class="box-text">
+    <p class="main-text p-0 m-0">Free Shipping</p>
+    <p class="sub-text p-0 m-0">Free shipping on all your order</p>
+</div>
+
+
+</div>
+</div>
+<!---->
+            </div>
+        </div>
+    </div>
+</section>
 
 
 <?php

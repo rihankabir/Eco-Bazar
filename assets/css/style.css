@@ -986,3 +986,16 @@ border-radius:10px;
     }
 
 }
+.brand{
+    padding-top: 30px;
+    padding-bottom: 70px;
+
+}
+.brand-sec{
+     padding-top: 50px;
+    padding-bottom: 50px;
+}
+.box-image{
+    height: 40px;
+    width: 40px;
+}
