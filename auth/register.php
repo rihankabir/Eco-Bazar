@@ -264,7 +264,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         Already have an account?
 
-                        <a href="/ecommerce/auth/login.php">
+                        <a href="../../Ecomart/auth/login.php">
                             Sign In
                         </a>
 
