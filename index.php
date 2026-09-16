@@ -208,9 +208,9 @@ $categories = $stmt->fetchAll();
             Popular Categories
         </h1>
 
-        <p class="text">
-        <a href=""></a>
-        </p>
+        
+        <a href="#" class="btn category-btn">View All<i class="bi bi-arrow-right"></i></a>
+        
 
     </div>
 
@@ -233,7 +233,7 @@ $categories = $stmt->fetchAll();
                             <?php if (!empty($category['image'])): ?>
 
                                 <img
-                                    src="/ecommerce/assets/uploads/categories/<?= e($category['image']); ?>"
+                                    src="/Ec/assets/uploads/categories/<?= e($category['image']); ?>"
                                     class="card-img-top"
                                     alt="<?= e($category['name']); ?>"
                                 >

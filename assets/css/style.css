@@ -1257,3 +1257,9 @@ border-radius:10px;
     }
 
 }
+.category-btn{
+    display: inline-flex;
+    color: #00c934 !important;
+gap: 10px;
+    text-decoration: none;
+}
