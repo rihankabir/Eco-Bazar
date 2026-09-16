@@ -233,7 +233,7 @@ $categories = $stmt->fetchAll();
                             <?php if (!empty($category['image'])): ?>
 
                                 <img
-                                    src="/Ec/assets/uploads/categories/<?= e($category['image']); ?>"
+                                    src="/Ecomart/assets/uploads/categories/<?= e($category['image']); ?>"
                                     class="card-img-top"
                                     alt="<?= e($category['name']); ?>"
                                 >
