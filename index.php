@@ -221,14 +221,14 @@ $categories = $stmt->fetchAll();
 
             <?php foreach ($categories as $category): ?>
 
-                <div class="col-6 col-md-4 col-lg-3">
+                <div class="col-6 col-md-4 col-lg-2">
 
                     <a
                         href="/ecommerce/products.php?category=<?= urlencode($category['slug']); ?>"
                         class="text-decoration-none text-dark"
                     >
 
-                        <div class="card h-100 text-center">
+                        <div class="card cat-card  text-center">
 
                             <?php if (!empty($category['image'])): ?>
 
@@ -240,9 +240,9 @@ $categories = $stmt->fetchAll();
 
                             <?php endif; ?>
 
-                            <div class="card-body">
+                            <div class="card-body cat-body">
 
-                                <h5 class="card-title mb-0">
+                                <h5 class="card-title cat-title mb-0">
                                     <?= e($category['name']); ?>
                                 </h5>
 

@@ -1263,3 +1263,31 @@ border-radius:10px;
 gap: 10px;
     text-decoration: none;
 }
+.cat-title{
+    font-family: "Poppins", sans-serif;
+  
+  font-style: normal;
+    font-size: 16px;
+}
+.cat-card{
+   
+    height: 213px;
+    padding-top: 16px;
+    padding-bottom: 24px;
+    padding-left: 0;
+    padding-right: 0;
+    gap: 16px;
+}
+.cat-card {
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.cat-card:hover {
+    color: #00b207;
+    box-shadow: 0 8px 25px rgba(31, 221, 37, 0.2);
+}
+.cat-body{
+    margin: 0;
+    padding: 0;
+}
