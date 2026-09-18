@@ -183,5 +183,176 @@ $(document).ready(function () {
     */
 
     updatePriceSlider();
+    $(function () {
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | QUICK VIEW
+    |--------------------------------------------------------------------------
+    */
+
+    $(document).on(
+        'click',
+        '.quick-view',
+        function () {
+
+
+            const productId =
+                parseInt(
+                    $(this).attr(
+                        'data-product-id'
+                    ),
+                    10
+                );
+
+
+            if (!productId) {
+
+                console.log(
+                    'Invalid product ID'
+                );
+
+                return;
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Loading
+            |--------------------------------------------------------------------------
+            */
+
+            $('#quickViewContent').html(
+
+                '<div class="text-center py-5">' +
+
+                '<div class="spinner-border text-success"></div>' +
+
+                '<p class="mt-3 mb-0">' +
+
+                'Loading product...' +
+
+                '</p>' +
+
+                '</div>'
+
+            );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Bootstrap Modal
+            |--------------------------------------------------------------------------
+            */
+
+            const modalElement =
+                document.getElementById(
+                    'quickViewModal'
+                );
+
+
+            const modal =
+                bootstrap.Modal.getOrCreateInstance(
+                    modalElement
+                );
+
+
+            modal.show();
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | AJAX
+            |--------------------------------------------------------------------------
+            */
+
+            $.ajax({
+
+                url: '/Ecomart/ajax/products.php',
+
+                type: 'POST',
+
+                dataType: 'json',
+
+                data: {
+
+                    action:
+                        'quick_view',
+
+                    product_id:
+                        productId
+
+                },
+
+
+                success: function (
+                    response
+                ) {
+
+
+                    console.log(
+                        'Quick View:',
+                        response
+                    );
+
+
+                    if (
+                        response.success
+                    ) {
+
+                        $('#quickViewContent')
+                            .html(
+                                response.data.html
+                            );
+
+                    } else {
+
+                        $('#quickViewContent')
+                            .html(
+
+                                '<div class="alert alert-danger">' +
+
+                                response.message +
+
+                                '</div>'
+
+                            );
+
+                    }
+
+                },
+
+
+                error: function (
+                    xhr
+                ) {
+
+
+                    console.log(
+                        'QUICK VIEW ERROR:',
+                        xhr.responseText
+                    );
+
+
+                    $('#quickViewContent')
+                        .html(
+
+                            '<div class="alert alert-danger">' +
+
+                            'Unable to load product.' +
+
+                            '</div>'
+
+                        );
+
+                }
+
+            });
+
+        }
+    );
+
+});
 
 });

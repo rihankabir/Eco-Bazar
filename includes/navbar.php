@@ -82,7 +82,7 @@
                     class="text-decoration-none"
                 >
                     <img src="/Ecomart/assets/images/icons/Bag.png"class="position-relative cart-image">
-                    <span class="badge rounded-pill bg-success cart-count-icon position-absolute top-10 start-10">
+                    <span class="badge rounded-pill bg-success cart-count-icon position-absolute top-10 start-10"id="cartCount">
                         0
                     </span>
 

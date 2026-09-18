@@ -19,6 +19,66 @@ $stmt = $pdo->prepare("
 $stmt->execute();
 
 $categories = $stmt->fetchAll();
+// =========================
+// POPULAR PRODUCTS
+// =========================
+
+$stmt = $pdo->prepare("
+    SELECT
+        p.id,
+        p.name,
+        p.slug,
+        p.price,
+        p.discount_price,
+        p.stock,
+
+        (
+            SELECT pi.image
+            FROM product_images pi
+            WHERE pi.product_id = p.id
+            ORDER BY
+                pi.is_primary DESC,
+                pi.sort_order ASC,
+                pi.id ASC
+            LIMIT 1
+        ) AS product_image,
+
+        COALESCE(
+            (
+                SELECT AVG(pr.rating)
+                FROM product_reviews pr
+                WHERE pr.product_id = p.id
+                AND pr.status = 'approved'
+            ),
+            0
+        ) AS average_rating,
+
+        (
+            SELECT COUNT(*)
+            FROM product_reviews pr
+            WHERE pr.product_id = p.id
+            AND pr.status = 'approved'
+        ) AS review_count
+
+    FROM products p
+
+    INNER JOIN categories c
+        ON c.id = p.category_id
+
+    WHERE p.status = 'active'
+    AND c.status = 'active'
+
+    ORDER BY
+        p.featured DESC,
+        p.created_at DESC
+
+    LIMIT 10
+");
+
+$stmt->execute();
+
+$popular_products = $stmt->fetchAll();
+
 ?>
 <!-- =========================
      HERO / BANNER SECTION
@@ -271,6 +331,355 @@ $categories = $stmt->fetchAll();
     </div>
 
 </div>
+<!-- =========================================================
+     POPULAR PRODUCTS
+========================================================= -->
+
+<section class="popular-products-section">
+
+    <div class="container">
+
+        <!-- SECTION TITLE -->
+
+        <div class="section-heading">
+
+            <h2>
+                Popular Products
+            </h2>
+
+            <a
+                href="/Ecomart/products.php"
+                class="view-all-link"
+            >
+                View All
+                <i class="bi bi-arrow-right"></i>
+            </a>
+
+        </div>
+
+
+        <!-- PRODUCTS GRID -->
+
+        <div class="popular-products-grid">
+
+            <?php if (!empty($popular_products)): ?>
+
+                <?php foreach ($popular_products as $product): ?>
+
+                    <?php
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Discount
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $has_discount =
+                        !empty($product['discount_price']) &&
+                        $product['discount_price'] > 0 &&
+                        $product['discount_price'] < $product['price'];
+
+
+                    if ($has_discount) {
+
+                        $current_price =
+                            $product['discount_price'];
+
+                        $discount_percent =
+                            round(
+                                (
+                                    ($product['price'] - $product['discount_price'])
+                                    / $product['price']
+                                ) * 100
+                            );
+
+                    } else {
+
+                        $current_price =
+                            $product['price'];
+
+                        $discount_percent = 0;
+                    }
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Rating
+                    |--------------------------------------------------------------------------
+                    */
+
+                    $rating =
+                        (int) round(
+                            (float) $product['average_rating']
+                        );
+
+                    ?>
+
+                    <!-- PRODUCT ITEM -->
+
+                    <div class="popular-product-item">
+
+                        <div
+                            class="home-product-card"
+                            data-product-id="<?= (int) $product['id']; ?>"
+                        >
+
+                            <!-- SALE BADGE -->
+
+                            <?php if ($has_discount): ?>
+
+                                <span class="home-sale-badge">
+
+                                    Sale <?= $discount_percent; ?>%
+
+                                </span>
+
+                            <?php endif; ?>
+
+
+                            <!-- PRODUCT ACTIONS -->
+
+                            <div class="home-product-actions">
+
+                                <!-- WISHLIST -->
+
+                                <button
+                                    type="button"
+                                    class="home-action-btn wishlist-btn"
+                                    data-product-id="<?= (int) $product['id']; ?>"
+                                    title="Wishlist"
+                                >
+
+                                    <i class="bi bi-heart"></i>
+
+                                </button>
+
+
+                                <!-- QUICK VIEW -->
+
+                                <button
+                                    type="button"
+                                    class="home-action-btn quick-view"
+                                    data-product-id="<?= (int) $product['id']; ?>"
+                                    title="Quick View"
+                                >
+
+                                    <i class="bi bi-eye"></i>
+
+                                </button>
+
+                            </div>
+
+
+                            <!-- PRODUCT IMAGE -->
+
+                            <a
+                                href="/Ecomart/product/single.php?slug=<?= urlencode($product['slug']); ?>"
+                                class="home-product-image-link"
+                            >
+
+                                <?php if (!empty($product['product_image'])): ?>
+
+                                    <img
+                                        src="/Ecomart/assets/uploads/products/<?= e($product['product_image']); ?>"
+                                        alt="<?= e($product['name']); ?>"
+                                        class="home-product-image"
+                                    >
+
+                                <?php else: ?>
+
+                                    <div class="home-product-no-image">
+                                        No Image
+                                    </div>
+
+                                <?php endif; ?>
+
+                            </a>
+
+
+                            <!-- PRODUCT INFORMATION -->
+
+                            <div class="home-product-info">
+
+                                <!-- PRODUCT NAME -->
+
+                                <a
+                                    href="/Ecomart/product/single.php?slug=<?= urlencode($product['slug']); ?>"
+                                    class="home-product-name"
+                                >
+
+                                    <?= e($product['name']); ?>
+
+                                </a>
+
+
+                                <!-- PRICE -->
+
+                                <div class="home-product-price">
+
+                                    <span class="current-price">
+
+                                        $
+                                        <?= number_format(
+                                            $current_price,
+                                            2
+                                        ); ?>
+
+                                    </span>
+
+
+                                    <?php if ($has_discount): ?>
+
+                                        <del class="old-price">
+
+                                            $
+                                            <?= number_format(
+                                                $product['price'],
+                                                2
+                                            ); ?>
+
+                                        </del>
+
+                                    <?php endif; ?>
+
+                                </div>
+
+
+                                <!-- RATING -->
+
+                                <div class="home-product-rating">
+
+                                    <span class="rating-stars">
+
+                                        <?php for ($i = 1; $i <= 5; $i++): ?>
+
+                                            <?php if ($i <= $rating): ?>
+
+                                                <i class="bi bi-star-fill"></i>
+
+                                            <?php else: ?>
+
+                                                <i class="bi bi-star"></i>
+
+                                            <?php endif; ?>
+
+                                        <?php endfor; ?>
+
+                                    </span>
+
+
+                                    <span class="review-count">
+
+                                        (<?= (int) $product['review_count']; ?>)
+
+                                    </span>
+
+                                </div>
+
+
+                                <!-- ADD TO CART -->
+
+                                <button
+                                    type="button"
+                                    class="home-cart-btn add-to-cart"
+                                    data-product-id="<?= (int) $product['id']; ?>"
+                                    title="Add to Cart"
+                                    <?= (int) $product['stock'] <= 0 ? 'disabled' : ''; ?>
+                                >
+
+                                    <?php if ((int) $product['stock'] > 0): ?>
+
+                                        <i class="bi bi-bag"></i>
+
+                                    <?php else: ?>
+
+                                        <i class="bi bi-x-circle"></i>
+
+                                    <?php endif; ?>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                <?php endforeach; ?>
+
+            <?php else: ?>
+
+                <div class="no-products-message">
+
+                    No popular products found.
+
+                </div>
+
+            <?php endif; ?>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================================================
+     QUICK VIEW MODAL
+========================================================= -->
+
+<div
+    class="modal fade"
+    id="quickViewModal"
+    tabindex="-1"
+    aria-hidden="true"
+>
+
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+                    Product Quick View
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+
+            </div>
+
+
+            <div
+                class="modal-body"
+                id="quickViewContent"
+            >
+
+                <div class="text-center py-5">
+
+                    <div
+                        class="spinner-border text-success"
+                    ></div>
+
+                    <p class="mt-3 mb-0">
+                        Loading product...
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
 
 
 <?php
