@@ -78,7 +78,47 @@ $stmt = $pdo->prepare("
 $stmt->execute();
 
 $popular_products = $stmt->fetchAll();
+/*
+|--------------------------------------------------------------------------
+| ACTIVE CATEGORY PROMOTIONS
+|--------------------------------------------------------------------------
+*/
 
+$stmt = $pdo->prepare("
+    SELECT
+        category_promotions.id,
+        category_promotions.category_id,
+        category_promotions.title,
+        category_promotions.image,
+        category_promotions.starts_at,
+        category_promotions.ends_at,
+
+        categories.name AS category_name,
+        categories.slug AS category_slug
+
+    FROM category_promotions
+
+    INNER JOIN categories
+        ON categories.id = category_promotions.category_id
+
+    WHERE category_promotions.status = 'active'
+
+    AND category_promotions.starts_at <= NOW()
+
+    AND category_promotions.ends_at > NOW()
+
+    AND categories.status = 'active'
+
+    ORDER BY
+        category_promotions.sort_order ASC,
+        category_promotions.id ASC
+
+    LIMIT 3
+");
+
+$stmt->execute();
+
+$promotions = $stmt->fetchAll();
 ?>
 <!-- =========================
      HERO / BANNER SECTION
@@ -612,6 +652,174 @@ $popular_products = $stmt->fetchAll();
                 <div class="no-products-message">
 
                     No popular products found.
+
+                </div>
+
+            <?php endif; ?>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- =========================================================
+     PROMOTIONAL CARDS
+========================================================= -->
+
+<section class="promo-section">
+
+    <div class="container">
+
+        <div class="row g-4">
+
+            <?php if (!empty($promotions)): ?>
+
+                <?php foreach ($promotions as $promotion): ?>
+
+                    <div class="col-lg-4 col-md-6">
+
+                        <div
+                            class="promo-card"
+                            style="
+                                background-image:
+                                url('/Ecomart/assets/uploads/categories/<?= e($promotion['image']); ?>');
+                            "
+                        >
+
+                            <div class="promo-overlay"></div>
+
+
+                            <div class="promo-content">
+
+                                <span class="promo-label">
+                                    SPECIAL OFFER
+                                </span>
+
+
+                                <h3>
+                                    <?= e($promotion['title']); ?>
+                                </h3>
+
+
+                                <!-- DYNAMIC COUNTDOWN -->
+
+                                <div
+                                    class="promo-countdown"
+                                    data-countdown="<?= e($promotion['ends_at']); ?>"
+                                >
+
+                                    <div class="countdown-item">
+
+                                        <span
+                                            class="countdown-value"
+                                            data-days
+                                        >
+                                            00
+                                        </span>
+
+                                        <small>
+                                            Days
+                                        </small>
+
+                                    </div>
+
+
+                                    <div class="countdown-separator">
+                                        :
+                                    </div>
+
+
+                                    <div class="countdown-item">
+
+                                        <span
+                                            class="countdown-value"
+                                            data-hours
+                                        >
+                                            00
+                                        </span>
+
+                                        <small>
+                                            Hours
+                                        </small>
+
+                                    </div>
+
+
+                                    <div class="countdown-separator">
+                                        :
+                                    </div>
+
+
+                                    <div class="countdown-item">
+
+                                        <span
+                                            class="countdown-value"
+                                            data-minutes
+                                        >
+                                            00
+                                        </span>
+
+                                        <small>
+                                            Minutes
+                                        </small>
+
+                                    </div>
+
+
+                                    <div class="countdown-separator">
+                                        :
+                                    </div>
+
+
+                                    <div class="countdown-item">
+
+                                        <span
+                                            class="countdown-value"
+                                            data-seconds
+                                        >
+                                            00
+                                        </span>
+
+                                        <small>
+                                            Seconds
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- SHOP NOW -->
+
+                                <a
+                                    href="/Ecomart/products.php?category=<?= urlencode($promotion['category_slug']); ?>"
+                                    class="promo-btn"
+                                >
+
+                                    Shop Now
+
+                                    <i class="bi bi-arrow-right"></i>
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                <?php endforeach; ?>
+
+
+            <?php else: ?>
+
+                <div class="col-12">
+
+                    <div class="alert alert-info text-center">
+
+                        No active promotions available.
+
+                    </div>
 
                 </div>
 

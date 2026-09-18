@@ -3353,3 +3353,276 @@ select {
     }
 
 }
+
+/* =========================================================
+   PROMOTIONAL CARDS
+========================================================= */
+
+.promo-section {
+    padding: 30px 0 60px;
+}
+
+
+/* =========================================================
+   PROMO CARD
+========================================================= */
+
+.promo-card {
+    position: relative;
+
+    min-height: 260px;
+
+    overflow: hidden;
+
+    border-radius: 8px;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.promo-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.28);
+
+    z-index: 1;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.promo-content {
+    position: relative;
+
+    z-index: 2;
+
+    min-height: 260px;
+
+    padding: 30px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.promo-label {
+    margin-bottom: 8px;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.promo-content h3 {
+    margin: 0 0 18px;
+
+    font-size: 28px;
+
+    line-height: 1.2;
+
+    font-weight: 600;
+
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   COUNTDOWN
+========================================================= */
+
+.promo-countdown {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   COUNTDOWN ITEM
+========================================================= */
+
+.countdown-item {
+    min-width: 42px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+
+.countdown-value {
+    font-size: 18px;
+
+    line-height: 1;
+
+    font-weight: 600;
+}
+
+
+.countdown-item small {
+    margin-top: 5px;
+
+    font-size: 9px;
+
+    text-transform: uppercase;
+
+    opacity: 0.9;
+}
+
+
+/* =========================================================
+   COUNTDOWN SEPARATOR
+========================================================= */
+
+.countdown-separator {
+    align-self: flex-start;
+
+    margin-top: 1px;
+
+    font-size: 18px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   SHOP BUTTON
+========================================================= */
+
+.promo-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 10px 20px;
+
+    border-radius: 25px;
+
+    background: #ffffff;
+
+    color: #00b207;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.promo-btn:hover {
+    background: #00b207;
+
+    color: #ffffff;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .promo-card {
+        min-height: 230px;
+    }
+
+    .promo-content {
+        min-height: 230px;
+
+        padding: 25px 20px;
+    }
+
+    .promo-content h3 {
+        font-size: 24px;
+    }
+
+}
+
+
+@media (max-width: 575px) {
+
+    .promo-section {
+        padding: 20px 0 40px;
+    }
+
+    .promo-card {
+        min-height: 215px;
+    }
+
+    .promo-content {
+        min-height: 215px;
+    }
+
+    .promo-content h3 {
+        font-size: 22px;
+    }
+
+    .promo-countdown {
+        gap: 5px;
+    }
+
+    .countdown-item {
+        min-width: 36px;
+    }
+
+    .countdown-value {
+        font-size: 16px;
+    }
+
+    .countdown-separator {
+        font-size: 16px;
+    }
+
+}
