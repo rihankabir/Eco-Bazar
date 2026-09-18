@@ -8,20 +8,60 @@ require_once __DIR__ . '/includes/header.php';
 
 /*
 |--------------------------------------------------------------------------
-| Category Filter
+| CATEGORY FILTER
 |--------------------------------------------------------------------------
 */
 
 $category_slug = trim($_GET['category'] ?? '');
 
-$selected_category = null;
+
+/*
+|--------------------------------------------------------------------------
+| PRICE FILTER
+|--------------------------------------------------------------------------
+*/
+
+$min_price = isset($_GET['min_price'])
+    ? (float) $_GET['min_price']
+    : 0;
+
+$max_price = isset($_GET['max_price'])
+    ? (float) $_GET['max_price']
+    : 1500;
 
 
 /*
 |--------------------------------------------------------------------------
-| Find Selected Category
+| KEEP PRICE VALUES SAFE
 |--------------------------------------------------------------------------
 */
+
+if ($min_price < 0) {
+    $min_price = 0;
+}
+
+if ($max_price > 1500) {
+    $max_price = 1500;
+}
+
+if ($min_price > $max_price) {
+
+    $temporary_price = $min_price;
+
+    $min_price = $max_price;
+
+    $max_price = $temporary_price;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| SELECTED CATEGORY
+|--------------------------------------------------------------------------
+*/
+
+$selected_category = null;
+
 
 if ($category_slug !== '') {
 
@@ -51,12 +91,13 @@ if ($category_slug !== '') {
 
 /*
 |--------------------------------------------------------------------------
-| Categories With Product Counts
+| GET ACTIVE CATEGORIES + PRODUCT COUNTS
 |--------------------------------------------------------------------------
 */
 
 $stmt = $pdo->prepare("
     SELECT
+
         categories.id,
         categories.name,
         categories.slug,
@@ -94,159 +135,152 @@ $categories = $stmt->fetchAll();
 
 /*
 |--------------------------------------------------------------------------
-| Get Products
+| TOTAL PRODUCTS
+|--------------------------------------------------------------------------
+*/
+
+$total_products = 0;
+
+
+foreach ($categories as $category) {
+
+    $total_products += (int) $category['product_count'];
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| PRODUCT QUERY
+|--------------------------------------------------------------------------
+*/
+
+$product_sql = "
+    SELECT
+
+        products.id,
+        products.category_id,
+        products.name,
+        products.slug,
+        products.sku,
+        products.brand,
+        products.short_description,
+        products.description,
+        products.price,
+        products.discount_price,
+        products.stock,
+        products.status,
+        products.featured,
+        products.created_at,
+
+        categories.name AS category_name,
+
+        (
+            SELECT product_images.image
+
+            FROM product_images
+
+            WHERE product_images.product_id = products.id
+
+            ORDER BY
+                product_images.is_primary DESC,
+                product_images.sort_order ASC,
+                product_images.id ASC
+
+            LIMIT 1
+
+        ) AS product_image,
+
+        (
+            SELECT ROUND(
+                AVG(product_reviews.rating),
+                1
+            )
+
+            FROM product_reviews
+
+            WHERE product_reviews.product_id = products.id
+
+            AND product_reviews.status = 'approved'
+
+        ) AS average_rating,
+
+        (
+            SELECT COUNT(product_reviews.id)
+
+            FROM product_reviews
+
+            WHERE product_reviews.product_id = products.id
+
+            AND product_reviews.status = 'approved'
+
+        ) AS review_count
+
+    FROM products
+
+    INNER JOIN categories
+        ON categories.id = products.category_id
+
+    WHERE products.status = 'active'
+
+    AND categories.status = 'active'
+
+    AND products.price >= ?
+
+    AND products.price <= ?
+";
+
+
+/*
+|--------------------------------------------------------------------------
+| CATEGORY CONDITION
 |--------------------------------------------------------------------------
 */
 
 if ($selected_category) {
 
-    $stmt = $pdo->prepare("
-        SELECT
-
-            products.id,
-            products.category_id,
-            products.name,
-            products.slug,
-            products.sku,
-            products.brand,
-            products.short_description,
-            products.price,
-            products.discount_price,
-            products.stock,
-            products.status,
-            products.featured,
-            products.created_at,
-
-            categories.name AS category_name,
-
-            (
-                SELECT product_images.image
-
-                FROM product_images
-
-                WHERE product_images.product_id = products.id
-
-                ORDER BY
-                    product_images.is_primary DESC,
-                    product_images.sort_order ASC,
-                    product_images.id ASC
-
-                LIMIT 1
-
-            ) AS product_image,
-
-            (
-                SELECT ROUND(AVG(product_reviews.rating), 1)
-
-                FROM product_reviews
-
-                WHERE product_reviews.product_id = products.id
-
-                AND product_reviews.status = 'approved'
-
-            ) AS average_rating,
-
-            (
-                SELECT COUNT(product_reviews.id)
-
-                FROM product_reviews
-
-                WHERE product_reviews.product_id = products.id
-
-                AND product_reviews.status = 'approved'
-
-            ) AS review_count
-
-        FROM products
-
-        INNER JOIN categories
-            ON categories.id = products.category_id
-
-        WHERE products.status = 'active'
-
-        AND categories.status = 'active'
-
+    $product_sql .= "
         AND products.category_id = ?
+    ";
 
-        ORDER BY products.created_at DESC
-    ");
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| PRODUCT ORDER
+|--------------------------------------------------------------------------
+*/
+
+$product_sql .= "
+    ORDER BY products.created_at DESC
+";
+
+
+/*
+|--------------------------------------------------------------------------
+| EXECUTE PRODUCT QUERY
+|--------------------------------------------------------------------------
+*/
+
+$stmt = $pdo->prepare($product_sql);
+
+
+if ($selected_category) {
 
     $stmt->execute([
+        $min_price,
+        $max_price,
         $selected_category['id']
     ]);
 
 } else {
 
-    $stmt = $pdo->prepare("
-        SELECT
+    $stmt->execute([
+        $min_price,
+        $max_price
+    ]);
 
-            products.id,
-            products.category_id,
-            products.name,
-            products.slug,
-            products.sku,
-            products.brand,
-            products.short_description,
-            products.price,
-            products.discount_price,
-            products.stock,
-            products.status,
-            products.featured,
-            products.created_at,
-
-            categories.name AS category_name,
-
-            (
-                SELECT product_images.image
-
-                FROM product_images
-
-                WHERE product_images.product_id = products.id
-
-                ORDER BY
-                    product_images.is_primary DESC,
-                    product_images.sort_order ASC,
-                    product_images.id ASC
-
-                LIMIT 1
-
-            ) AS product_image,
-
-            (
-                SELECT ROUND(AVG(product_reviews.rating), 1)
-
-                FROM product_reviews
-
-                WHERE product_reviews.product_id = products.id
-
-                AND product_reviews.status = 'approved'
-
-            ) AS average_rating,
-
-            (
-                SELECT COUNT(product_reviews.id)
-
-                FROM product_reviews
-
-                WHERE product_reviews.product_id = products.id
-
-                AND product_reviews.status = 'approved'
-
-            ) AS review_count
-
-        FROM products
-
-        INNER JOIN categories
-            ON categories.id = products.category_id
-
-        WHERE products.status = 'active'
-
-        AND categories.status = 'active'
-
-        ORDER BY products.created_at DESC
-    ");
-
-    $stmt->execute();
 }
 
 
@@ -255,22 +289,57 @@ $products = $stmt->fetchAll();
 
 /*
 |--------------------------------------------------------------------------
-| Total Product Count
+| SALE PRODUCTS
 |--------------------------------------------------------------------------
 */
 
-$total_products = 0;
+$stmt = $pdo->prepare("
+    SELECT
 
-foreach ($categories as $category) {
+        products.id,
+        products.name,
+        products.price,
+        products.discount_price,
 
-    $total_products += (int) $category['product_count'];
+        (
+            SELECT product_images.image
 
-}
+            FROM product_images
+
+            WHERE product_images.product_id = products.id
+
+            ORDER BY
+                product_images.is_primary DESC,
+                product_images.sort_order ASC,
+                product_images.id ASC
+
+            LIMIT 1
+
+        ) AS product_image
+
+    FROM products
+
+    WHERE products.status = 'active'
+
+    AND products.discount_price > 0
+
+    AND products.discount_price < products.price
+
+    ORDER BY products.created_at DESC
+
+    LIMIT 3
+");
+
+$stmt->execute();
+
+$sale_products = $stmt->fetchAll();
 
 ?>
 
+
+
 <!-- =========================================================
-     BREADCRUMB / BANNER
+     BREADCRUMB BANNER
 ========================================================= -->
 
 <section class="products-banner">
@@ -279,7 +348,7 @@ foreach ($categories as $category) {
 
         <div class="products-breadcrumb">
 
-            <a href="/ecommerce/">
+            <a href="/Ecomart/">
 
                 <i class="fa-solid fa-house"></i>
 
@@ -289,16 +358,23 @@ foreach ($categories as $category) {
 
             <i class="fa-solid fa-chevron-right"></i>
 
-            <span>Categories</span>
+            <span>
+                Categories
+            </span>
 
             <i class="fa-solid fa-chevron-right"></i>
 
             <span class="active">
 
-                <?= $selected_category
-                    ? e($selected_category['name'])
-                    : 'All Products';
-                ?>
+                <?php if ($selected_category): ?>
+
+                    <?= e($selected_category['name']); ?>
+
+                <?php else: ?>
+
+                    All Products
+
+                <?php endif; ?>
 
             </span>
 
@@ -307,6 +383,7 @@ foreach ($categories as $category) {
     </div>
 
 </section>
+
 
 
 <!-- =========================================================
@@ -321,7 +398,7 @@ foreach ($categories as $category) {
 
 
             <!-- =================================================
-                 LEFT SIDEBAR
+                 SIDEBAR
             ================================================= -->
 
             <div class="col-lg-3">
@@ -329,7 +406,7 @@ foreach ($categories as $category) {
                 <aside class="products-sidebar">
 
 
-                    <!-- Filter Button -->
+                    <!-- FILTER BUTTON -->
 
                     <button
                         type="button"
@@ -343,7 +420,10 @@ foreach ($categories as $category) {
                     </button>
 
 
-                    <!-- Categories -->
+
+                    <!-- =========================================
+                         ALL CATEGORIES
+                    ========================================== -->
 
                     <div class="filter-section">
 
@@ -361,15 +441,12 @@ foreach ($categories as $category) {
                         <div class="category-filter-list">
 
 
-                            <!-- All Categories -->
+                            <!-- ALL PRODUCTS -->
 
                             <a
-                                href="/ecommerce/products.php"
+                                href="/Ecomart/products.php"
                                 class="category-filter-item
-                                <?= $selected_category === null
-                                    ? 'selected'
-                                    : '';
-                                ?>"
+                                <?= $selected_category === null ? 'selected' : ''; ?>"
                             >
 
                                 <span class="category-radio"></span>
@@ -379,18 +456,19 @@ foreach ($categories as $category) {
                                 </span>
 
                                 <span class="category-count">
-                                    <?= $total_products; ?>
+                                    (<?= $total_products; ?>)
                                 </span>
 
                             </a>
 
 
-                            <!-- Dynamic Categories -->
+
+                            <!-- DYNAMIC CATEGORIES -->
 
                             <?php foreach ($categories as $category): ?>
 
                                 <a
-                                    href="/ecommerce/products.php?category=<?= urlencode($category['slug']); ?>"
+                                    href="/Ecomart/products.php?category=<?= urlencode($category['slug']); ?>"
                                     class="category-filter-item
                                     <?= (
                                         $selected_category
@@ -398,8 +476,7 @@ foreach ($categories as $category) {
                                         $selected_category['id'] == $category['id']
                                     )
                                     ? 'selected'
-                                    : '';
-                                    ?>"
+                                    : ''; ?>"
                                 >
 
                                     <span class="category-radio"></span>
@@ -420,55 +497,134 @@ foreach ($categories as $category) {
 
                             <?php endforeach; ?>
 
-                        </div>
-
-                    </div>
-
-
-                    <!-- Price -->
-
-                    <div class="filter-section">
-
-                        <div class="filter-title">
-
-                            <h4>
-                                Price
-                            </h4>
-
-                            <i class="fa-solid fa-chevron-up"></i>
-
-                        </div>
-
-
-                        <div class="price-slider">
-
-                            <div class="price-track">
-
-                                <span class="price-dot left"></span>
-
-                                <span class="price-dot right"></span>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="price-values">
-
-                            <span>
-                                Price:
-                            </span>
-
-                            <strong>
-                                $0 - $1,500
-                            </strong>
 
                         </div>
 
                     </div>
 
 
-                    <!-- Rating -->
+
+                   <!-- =========================================
+     PRICE FILTER
+========================================== -->
+
+<div class="filter-section">
+
+    <div class="filter-title">
+
+        <h4>
+            Price
+        </h4>
+
+        <i class="fa-solid fa-chevron-up"></i>
+
+    </div>
+
+
+    <form
+        method="GET"
+        action="/Ecomart/products.php"
+        id="priceFilterForm"
+    >
+
+        <?php if ($selected_category): ?>
+
+            <input
+                type="hidden"
+                name="category"
+                value="<?= e($selected_category['slug']); ?>"
+            >
+
+        <?php endif; ?>
+
+
+        <!-- Hidden values sent to PHP -->
+
+        <input
+            type="hidden"
+            name="min_price"
+            id="minPriceValue"
+            value="<?= (int) $min_price; ?>"
+        >
+
+        <input
+            type="hidden"
+            name="max_price"
+            id="maxPriceValue"
+            value="<?= (int) $max_price; ?>"
+        >
+
+
+        <div class="price-filter">
+
+            <div class="price-slider">
+
+                <!-- Gray background line -->
+
+                <div class="price-slider-track"></div>
+
+
+                <!-- Green selected range -->
+
+                <div
+                    class="price-slider-range"
+                    id="priceSliderRange"
+                ></div>
+
+
+                <!-- Minimum slider -->
+
+                <input
+                    type="range"
+                    id="minPrice"
+                    min="0"
+                    max="1500"
+                    value="<?= (int) $min_price; ?>"
+                    step="1"
+                >
+
+
+                <!-- Maximum slider -->
+
+                <input
+                    type="range"
+                    id="maxPrice"
+                    min="0"
+                    max="1500"
+                    value="<?= (int) $max_price; ?>"
+                    step="1"
+                >
+
+            </div>
+
+
+            <div class="price-text">
+
+                Price:
+
+                <strong id="priceDisplay">
+
+                    $<?= number_format($min_price, 0); ?>
+
+                    -
+
+                    $<?= number_format($max_price, 0); ?>
+
+                </strong>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+
+                    <!-- =========================================
+                         RATING
+                    ========================================== -->
 
                     <div class="filter-section">
 
@@ -484,6 +640,7 @@ foreach ($categories as $category) {
 
 
                         <div class="rating-filter">
+
 
                             <label>
 
@@ -574,12 +731,16 @@ foreach ($categories as $category) {
 
                             </label>
 
+
                         </div>
 
                     </div>
 
 
-                    <!-- Popular Tags -->
+
+                    <!-- =========================================
+                         POPULAR TAG
+                    ========================================== -->
 
                     <div class="filter-section">
 
@@ -596,42 +757,89 @@ foreach ($categories as $category) {
 
                         <div class="popular-tags">
 
-                            <span>Healthy</span>
-                            <span class="active">Low fat</span>
-                            <span>Vegetarian</span>
-                            <span>Kid foods</span>
-                            <span>Vitamins</span>
-                            <span>Bread</span>
-                            <span>Meat</span>
-                            <span>Snacks</span>
-                            <span>Tiffin</span>
-                            <span>Lunch</span>
-                            <span>Dinner</span>
-                            <span>Breakfast</span>
-                            <span>Fruit</span>
+                            <span>
+                                Healthy
+                            </span>
+
+                            <span class="active">
+                                Low fat
+                            </span>
+
+                            <span>
+                                Vegetarian
+                            </span>
+
+                            <span>
+                                Kid foods
+                            </span>
+
+                            <span>
+                                Vitamins
+                            </span>
+
+                            <span>
+                                Bread
+                            </span>
+
+                            <span>
+                                Meat
+                            </span>
+
+                            <span>
+                                Snacks
+                            </span>
+
+                            <span>
+                                Tiffin
+                            </span>
+
+                            <span>
+                                Lunch
+                            </span>
+
+                            <span>
+                                Dinner
+                            </span>
+
+                            <span>
+                                Breakfast
+                            </span>
+
+                            <span>
+                                Fruit
+                            </span>
 
                         </div>
 
                     </div>
 
 
-                    <!-- Promotion -->
+
+                    <!-- =========================================
+                         PROMOTION
+                    ========================================== -->
 
                     <div class="sidebar-promotion">
 
                         <div class="promotion-content">
 
-                            <span>
-                                79%
-                            </span>
+                            <div>
 
-                            Discount
+                                <strong>
+                                    79%
+                                </strong>
+
+                                <span>
+                                    Discount
+                                </span>
+
+                            </div>
 
                             <small>
                                 on your first order
                             </small>
 
-                            <a href="/ecommerce/products.php">
+                            <a href="/Ecomart/products.php">
 
                                 Shop Now
 
@@ -644,7 +852,10 @@ foreach ($categories as $category) {
                     </div>
 
 
-                    <!-- Sale Products -->
+
+                    <!-- =========================================
+                         SALE PRODUCTS
+                    ========================================== -->
 
                     <div class="sale-products">
 
@@ -653,118 +864,110 @@ foreach ($categories as $category) {
                         </h4>
 
 
-                        <div class="sale-product-item">
+                        <?php foreach ($sale_products as $sale_product): ?>
 
-                            <div class="sale-product-image">
 
-                                <img
-                                    src="/ecommerce/assets/uploads/products/green-capsicum.jpg"
-                                    alt="Green Capsicum"
-                                >
+                            <div class="sale-product-item">
 
-                            </div>
 
-                            <div>
+                                <div class="sale-product-image">
 
-                                <small>
-                                    Green Capsicum
-                                </small>
+                                    <?php if (!empty($sale_product['product_image'])): ?>
 
-                                <strong>
-                                    $9.00
-                                </strong>
+                                        <img
+                                            src="/Ecomart/assets/uploads/products/<?= e($sale_product['product_image']); ?>"
+                                            alt="<?= e($sale_product['name']); ?>"
+                                        >
 
-                                <del>
-                                    $20.99
-                                </del>
+                                    <?php else: ?>
 
-                                <div class="mini-stars">
-                                    ★★★★★
+                                        <div class="sale-no-image">
+
+                                            <i class="fa-regular fa-image"></i>
+
+                                        </div>
+
+                                    <?php endif; ?>
+
                                 </div>
 
-                            </div>
 
-                        </div>
+                                <div class="sale-product-info">
+
+                                    <small>
+
+                                        <?= e($sale_product['name']); ?>
+
+                                    </small>
 
 
-                        <div class="sale-product-item active">
+                                    <div>
 
-                            <div class="sale-product-image">
+                                        <strong>
 
-                                <img
-                                    src="/ecommerce/assets/uploads/products/fresh-mango.jpg"
-                                    alt="Surjapur Mango"
-                                >
+                                            $<?= number_format(
+                                                $sale_product['discount_price'],
+                                                2
+                                            ); ?>
 
-                            </div>
+                                        </strong>
 
-                            <div>
 
-                                <small>
-                                    Surjapur Mango
-                                </small>
+                                        <del>
 
-                                <strong>
-                                    $34.00
-                                </strong>
+                                            $<?= number_format(
+                                                $sale_product['price'],
+                                                2
+                                            ); ?>
 
-                                <div class="mini-stars">
-                                    ★★★★★
+                                        </del>
+
+                                    </div>
+
+
+                                    <div class="mini-stars">
+
+                                        ★★★★★
+
+                                    </div>
+
                                 </div>
 
-                            </div>
-
-                        </div>
-
-
-                        <div class="sale-product-item">
-
-                            <div class="sale-product-image">
-
-                                <img
-                                    src="/ecommerce/assets/uploads/products/fresh-capsicum.jpg"
-                                    alt="Capsicum"
-                                >
 
                             </div>
 
-                            <div>
 
-                                <small>
-                                    Green Capsicum
-                                </small>
+                        <?php endforeach; ?>
 
-                                <strong>
-                                    $9.00
-                                </strong>
 
-                                <del>
-                                    $20.99
-                                </del>
+                        <?php if (empty($sale_products)): ?>
 
-                                <div class="mini-stars">
-                                    ★★★★★
-                                </div>
+                            <p class="text-muted small">
+                                No sale products available.
+                            </p>
 
-                            </div>
+                        <?php endif; ?>
 
-                        </div>
 
                     </div>
+
 
                 </aside>
 
             </div>
 
 
+
             <!-- =================================================
-                 RIGHT CONTENT
+                 PRODUCTS CONTENT
             ================================================= -->
 
             <div class="col-lg-9">
 
 
-                <!-- Top Controls -->
+                <!-- =============================================
+                     TOOLBAR
+                ============================================== -->
 
                 <div class="products-toolbar">
 
@@ -786,6 +989,7 @@ foreach ($categories as $category) {
                         <span>
                             Sort by:
                         </span>
+
 
                         <select>
 
@@ -820,10 +1024,14 @@ foreach ($categories as $category) {
 
                     </div>
 
+
                 </div>
 
 
-                <!-- Product Grid -->
+
+                <!-- =============================================
+                     PRODUCT GRID
+                ============================================== -->
 
                 <div class="row g-3">
 
@@ -841,8 +1049,15 @@ foreach ($categories as $category) {
                                 </h3>
 
                                 <p>
-                                    There are no products in this category yet.
+                                    Try changing your category or price range.
                                 </p>
+
+                                <a
+                                    href="/Ecomart/products.php"
+                                    class="no-products-button"
+                                >
+                                    View All Products
+                                </a>
 
                             </div>
 
@@ -851,7 +1066,9 @@ foreach ($categories as $category) {
                     <?php endif; ?>
 
 
+
                     <?php foreach ($products as $product): ?>
+
 
                         <?php
 
@@ -864,24 +1081,27 @@ foreach ($categories as $category) {
                             <
                             (float) $product['price'];
 
+
                         $discount_percent = 0;
+
 
                         if ($has_discount) {
 
                             $discount_percent = round(
                                 (
                                     (
-                                        $product['price']
+                                        (float) $product['price']
                                         -
-                                        $product['discount_price']
+                                        (float) $product['discount_price']
                                     )
                                     /
-                                    $product['price']
+                                    (float) $product['price']
                                 )
                                 * 100
                             );
 
                         }
+
 
                         $rating = $product['average_rating']
                             ? (float) $product['average_rating']
@@ -896,7 +1116,7 @@ foreach ($categories as $category) {
                             <div class="product-card">
 
 
-                                <!-- Image Area -->
+                                <!-- PRODUCT IMAGE -->
 
                                 <div class="product-card-image">
 
@@ -923,7 +1143,10 @@ foreach ($categories as $category) {
                                     <?php endif; ?>
 
 
+                                    <!-- ACTION BUTTONS -->
+
                                     <div class="product-actions">
+
 
                                         <button
                                             type="button"
@@ -944,13 +1167,16 @@ foreach ($categories as $category) {
 
                                         </button>
 
+
                                     </div>
 
+
+                                    <!-- PRODUCT IMAGE -->
 
                                     <?php if (!empty($product['product_image'])): ?>
 
                                         <img
-                                            src="/ecommerce/assets/uploads/products/<?= e($product['product_image']); ?>"
+                                            src="/Ecomart/assets/uploads/products/<?= e($product['product_image']); ?>"
                                             alt="<?= e($product['name']); ?>"
                                         >
 
@@ -972,13 +1198,14 @@ foreach ($categories as $category) {
                                 </div>
 
 
-                                <!-- Product Information -->
+
+                                <!-- PRODUCT BODY -->
 
                                 <div class="product-card-body">
 
 
                                     <a
-                                        href="/ecommerce/product/single.php?slug=<?= urlencode($product['slug']); ?>"
+                                        href="/Ecomart/product/single.php?slug=<?= urlencode($product['slug']); ?>"
                                         class="product-name"
                                     >
 
@@ -987,7 +1214,10 @@ foreach ($categories as $category) {
                                     </a>
 
 
+                                    <!-- PRICE -->
+
                                     <div class="product-price">
+
 
                                         <?php if ($has_discount): ?>
 
@@ -1000,6 +1230,7 @@ foreach ($categories as $category) {
 
                                             </strong>
 
+
                                             <del>
 
                                                 $<?= number_format(
@@ -1008,6 +1239,7 @@ foreach ($categories as $category) {
                                                 ); ?>
 
                                             </del>
+
 
                                         <?php else: ?>
 
@@ -1033,22 +1265,31 @@ foreach ($categories as $category) {
 
                                         </button>
 
+
                                     </div>
 
 
+
+                                    <!-- RATING -->
+
                                     <div class="product-rating">
+
 
                                         <span class="stars">
 
+
                                             <?php for ($i = 1; $i <= 5; $i++): ?>
+
 
                                                 <?php if ($rating >= $i): ?>
 
                                                     <i class="fa-solid fa-star"></i>
 
+
                                                 <?php elseif ($rating >= ($i - 0.5)): ?>
 
                                                     <i class="fa-solid fa-star-half-stroke"></i>
+
 
                                                 <?php else: ?>
 
@@ -1056,43 +1297,45 @@ foreach ($categories as $category) {
 
                                                 <?php endif; ?>
 
+
                                             <?php endfor; ?>
+
 
                                         </span>
 
 
-                                        <?php if ((int) $product['review_count'] > 0): ?>
+                                        <small>
 
-                                            <small>
-                                                (<?= (int) $product['review_count']; ?>)
-                                            </small>
+                                            (<?= (int) $product['review_count']; ?>)
 
-                                        <?php else: ?>
+                                        </small>
 
-                                            <small>
-                                                (0)
-                                            </small>
-
-                                        <?php endif; ?>
 
                                     </div>
 
 
                                 </div>
 
+
                             </div>
+
 
                         </div>
 
 
                     <?php endforeach; ?>
 
+
                 </div>
 
 
-                <!-- Pagination -->
+
+                <!-- =============================================
+                     PAGINATION
+                ============================================== -->
 
                 <div class="products-pagination">
+
 
                     <button disabled>
 
@@ -1105,21 +1348,26 @@ foreach ($categories as $category) {
                         1
                     </button>
 
+
                     <button>
                         2
                     </button>
+
 
                     <button>
                         3
                     </button>
 
+
                     <button>
                         4
                     </button>
 
+
                     <span>
                         ...
                     </span>
+
 
                     <button>
                         21
@@ -1132,7 +1380,9 @@ foreach ($categories as $category) {
 
                     </button>
 
+
                 </div>
+
 
             </div>
 
@@ -1141,6 +1391,7 @@ foreach ($categories as $category) {
     </div>
 
 </section>
+
 
 
 <?php require_once __DIR__ . '/includes/footer.php'; ?>
