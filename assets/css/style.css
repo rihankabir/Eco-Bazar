@@ -3626,3 +3626,421 @@ select {
     }
 
 }
+
+/* =========================================================
+   HOT SALE
+========================================================= */
+
+.hot-sale-section {
+    padding: 30px 0 60px;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.hot-sale-header {
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    margin-bottom: 25px;
+}
+
+
+.hot-sale-title {
+    margin: 0;
+
+    font-size: 32px;
+
+    font-weight: 600;
+
+    color: #1a1a1a;
+}
+
+
+.hot-sale-subtitle {
+    margin: 6px 0 0;
+
+    color: #666;
+
+    font-size: 14px;
+}
+
+
+.hot-sale-view-all {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color: #00b207;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.hot-sale-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 16px;
+}
+
+
+/* =========================================================
+   PRODUCT
+========================================================= */
+
+.hot-sale-product,
+.hot-sale-featured {
+    position: relative;
+
+    overflow: hidden;
+
+    border: 1px solid #e6e6e6;
+
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    transition:
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.hot-sale-product:hover,
+.hot-sale-featured:hover {
+    box-shadow:
+        0 8px 25px rgba(0, 178, 7, 0.14);
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.hot-sale-image-wrapper {
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 1 / 1;
+
+    overflow: hidden;
+
+    background: #f7f7f7;
+}
+
+
+.hot-sale-product-image {
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: contain;
+
+    padding: 15px;
+
+    transition: transform 0.3s ease;
+}
+
+
+.hot-sale-product:hover
+.hot-sale-product-image,
+.hot-sale-featured:hover
+.hot-sale-product-image {
+    transform: scale(1.04);
+}
+
+
+/* =========================================================
+   SALE BADGE
+========================================================= */
+
+.hot-sale-badge {
+    position: absolute;
+
+    top: 12px;
+
+    left: 12px;
+
+    z-index: 3;
+
+    padding: 5px 9px;
+
+    border-radius: 4px;
+
+    background: #ea4b48;
+
+    color: #ffffff;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   WISHLIST / QUICK VIEW
+========================================================= */
+
+.hot-sale-wishlist,
+.hot-sale-quick-view {
+    position: absolute;
+
+    right: 12px;
+
+    z-index: 3;
+
+    width: 34px;
+
+    height: 34px;
+
+    border: 1px solid #e6e6e6;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    color: #555;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    cursor: pointer;
+}
+
+
+.hot-sale-wishlist {
+    top: 12px;
+}
+
+
+.hot-sale-quick-view {
+    top: 54px;
+}
+
+
+.hot-sale-wishlist:hover,
+.hot-sale-quick-view:hover {
+    background: #00b207;
+
+    border-color: #00b207;
+
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   PRODUCT INFO
+========================================================= */
+
+.hot-sale-product-info {
+    padding: 15px;
+}
+
+
+.hot-sale-product-name {
+    margin: 0 0 8px;
+
+    font-size: 15px;
+
+    font-weight: 500;
+
+    line-height: 1.4;
+
+    color: #1a1a1a;
+}
+
+
+/* =========================================================
+   RATING
+========================================================= */
+
+.hot-sale-rating {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin-bottom: 10px;
+}
+
+
+.hot-sale-stars {
+    display: inline-flex;
+
+    gap: 2px;
+
+    color: #ffb800;
+
+    font-size: 12px;
+}
+
+
+.hot-sale-feedback {
+    color: #777;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   PRICE
+========================================================= */
+
+.hot-sale-price {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-bottom: 13px;
+}
+
+
+.hot-sale-current-price {
+    color: #1a1a1a;
+
+    font-size: 17px;
+
+    font-weight: 600;
+}
+
+
+.hot-sale-old-price {
+    color: #999;
+
+    font-size: 13px;
+
+    text-decoration: line-through;
+}
+
+
+/* =========================================================
+   CART BUTTON
+========================================================= */
+
+.hot-sale-cart-btn {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 10px 15px;
+
+    border: 0;
+
+    border-radius: 5px;
+
+    background: #00b207;
+
+    color: #ffffff;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+.hot-sale-cart-btn:hover {
+    background: #009406;
+}
+
+
+/* =========================================================
+   NO IMAGE
+========================================================= */
+
+.hot-sale-no-image {
+    width: 100%;
+
+    height: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #999;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .hot-sale-grid {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+
+}
+
+
+@media (max-width: 767px) {
+
+    .hot-sale-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .hot-sale-title {
+        font-size: 26px;
+    }
+
+}
+
+
+@media (max-width: 575px) {
+
+    .hot-sale-header {
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+    .hot-sale-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hot-sale-title {
+        font-size: 24px;
+    }
+
+}
