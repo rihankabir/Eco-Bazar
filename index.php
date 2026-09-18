@@ -209,7 +209,7 @@ $categories = $stmt->fetchAll();
         </h1>
 
         
-        <a href="#" class="btn category-btn">View All<i class="bi bi-arrow-right"></i></a>
+        <a href="/Ecomart/products.php" class="btn category-btn">View All<i class="bi bi-arrow-right"></i></a>
         
 
     </div>
@@ -224,7 +224,7 @@ $categories = $stmt->fetchAll();
                 <div class="col-6 col-md-4 col-lg-2">
 
                     <a
-                        href="/ecommerce/products.php?category=<?= urlencode($category['slug']); ?>"
+                        href="/Ecomart/products.php?category=<?= urlencode($category['slug']); ?>"
                         class="text-decoration-none text-dark"
                     >
 
