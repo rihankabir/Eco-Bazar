@@ -1716,7 +1716,16 @@ $hot_sale_products = array_values(
 </section>
 <!--discount banner-->
 <section class="discount-banner">
-    
+    <div class="container">
+        <div class="row">
+            <div class="maindis-banner">
+<div class="maindis-content">
+
+</div>
+<img src="assets/uploads/discountbanner/discountbanner.png" alt="discountbanner"class="img-fluid">
+    </div>
+        </div>
+    </div>
 </section>
 
 
