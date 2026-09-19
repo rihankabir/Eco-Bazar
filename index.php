@@ -1714,6 +1714,18 @@ $hot_sale_products = array_values(
     </div>
 
 </section>
+<!--discount banner-->
+<section class="discount-banner">
+    
+</section>
+
+
+<!--discount banner end-->
+
+
+
+
+
 <!-- =========================================================
      QUICK VIEW MODAL
 ========================================================= -->
