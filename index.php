@@ -124,59 +124,164 @@ $promotions = $stmt->fetchAll();
 | HOT SALE PRODUCTS
 |--------------------------------------------------------------------------
 */
+$hot_sale_names = [
+    'Green Apple',
+    'Chinese Cabbage',
+    'Green Lettuce',
+    'Eggplant',
+    'Fresh Cauliflower',
+    'Green Capsicum',
+    'Green Chili',
+    'Big Potatoes',
+    'Corn',
+    'Red Chili',
+    'Red Tomatos',
+    'Surjapur Mango'
+];
+
+
+/*
+|--------------------------------------------------------------------------
+| Create placeholders
+|--------------------------------------------------------------------------
+*/
+
+$placeholders = implode(
+    ',',
+    array_fill(
+        0,
+        count($hot_sale_names),
+        '?'
+    )
+);
+
+
+/*
+|--------------------------------------------------------------------------
+| Product Query
+|--------------------------------------------------------------------------
+*/
 
 $stmt = $pdo->prepare("
     SELECT
+
         products.id,
         products.name,
         products.slug,
+        products.sku,
+        products.brand,
         products.price,
         products.discount_price,
         products.stock,
+        products.featured,
+        products.created_at,
+
+        /*
+        |--------------------------------------------------------------------------
+        | Primary Image
+        |--------------------------------------------------------------------------
+        */
 
         (
             SELECT product_images.image
+
             FROM product_images
+
             WHERE product_images.product_id = products.id
+
             ORDER BY
                 product_images.is_primary DESC,
                 product_images.sort_order ASC,
                 product_images.id ASC
+
             LIMIT 1
+
         ) AS product_image,
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Average Rating
+        |--------------------------------------------------------------------------
+        */
+
         (
-            SELECT ROUND(AVG(product_reviews.rating), 1)
+            SELECT ROUND(
+                AVG(product_reviews.rating),
+                1
+            )
+
             FROM product_reviews
+
             WHERE product_reviews.product_id = products.id
+
             AND product_reviews.status = 'approved'
+
         ) AS average_rating,
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Review Count
+        |--------------------------------------------------------------------------
+        */
 
         (
             SELECT COUNT(*)
+
             FROM product_reviews
+
             WHERE product_reviews.product_id = products.id
+
             AND product_reviews.status = 'approved'
+
         ) AS review_count
+
 
     FROM products
 
+
     WHERE products.status = 'active'
 
-    AND products.discount_price > 0
+    AND products.name IN ($placeholders)
 
-    AND products.discount_price < products.price
 
-    ORDER BY
-        products.featured DESC,
-        products.created_at DESC
+    ORDER BY CASE products.name
 
-    LIMIT 12
+        WHEN 'Green Apple' THEN 1
+        WHEN 'Chinese Cabbage' THEN 2
+        WHEN 'Green Lettuce' THEN 3
+        WHEN 'Eggplant' THEN 4
+        WHEN 'Fresh Cauliflower' THEN 5
+        WHEN 'Green Capsicum' THEN 6
+        WHEN 'Green Chili' THEN 7
+        WHEN 'Big Potatoes' THEN 8
+        WHEN 'Corn' THEN 9
+        WHEN 'Red Chili' THEN 10
+        WHEN 'Red Tomatos' THEN 11
+        WHEN 'Surjapur Mango' THEN 12
+
+    END
+
 ");
 
-$stmt->execute();
+$stmt->execute($hot_sale_names);
 
 $hot_sale_products = $stmt->fetchAll();
+
+
+/*
+|--------------------------------------------------------------------------
+| Safety Check
+|--------------------------------------------------------------------------
+|
+| We expect exactly 12 products.
+|
+*/
+
+$hot_sale_products = array_values(
+    $hot_sale_products
+);
 
 ?>
 <!-- =========================
@@ -893,116 +998,95 @@ $hot_sale_products = $stmt->fetchAll();
      HOT SALE SECTION
 ========================================================= -->
 
-<section class="hot-sale-section">
+<!-- =========================================================
+     HOT DEALS
+========================================================= -->
+<!-- =========================================================
+     HOT DEALS SECTION
+========================================================= -->
+
+<section class="hot-deals-section">
 
     <div class="container">
 
-
-        <!-- =================================================
+        <!-- =====================================================
              SECTION HEADER
-        ================================================== -->
+        ====================================================== -->
 
-        <div class="hot-sale-header">
+        <div class="hot-deals-heading">
 
-            <div>
-
-                <h2 class="hot-sale-title">
-                    Hot Sale
-                </h2>
-
-                <p class="hot-sale-subtitle">
-                    Don't miss our hottest deals
-                </p>
-
-            </div>
-
+            <h2>
+                Hot Deals
+            </h2>
 
             <a
                 href="/Ecomart/products.php"
-                class="hot-sale-view-all"
+                class="hot-deals-view-all"
             >
                 View All
-
                 <i class="bi bi-arrow-right"></i>
-
             </a>
 
         </div>
 
 
-        <!-- =================================================
-             PRODUCTS
-        ================================================== -->
+        <?php if (count($hot_sale_products) === 12): ?>
 
-        <?php if (!empty($hot_sale_products)): ?>
 
-            <div class="hot-sale-grid">
+            <!-- =================================================
+                 MAIN HOT DEALS GRID
 
-                <?php foreach ($hot_sale_products as $index => $product): ?>
+                 5 COLUMNS
+                 3 ROWS
 
-                    <?php
+                 FEATURED CARD:
+                 2 COLUMNS × 2 ROWS
 
-                    $discount_percentage = 0;
+                 SMALL PRODUCTS:
+                 6 ON RIGHT
+                 5 UNDERNEATH
+            ================================================== -->
 
-                    if (
-                        $product['price'] > 0 &&
-                        $product['discount_price'] > 0
-                    ) {
+            <div class="hot-deals-layout">
 
-                        $discount_percentage = round(
-                            (
-                                (
-                                    $product['price']
-                                    -
-                                    $product['discount_price']
-                                )
-                                /
-                                $product['price']
-                            )
-                            * 100
-                        );
 
-                    }
+                <!-- =================================================
+                     FEATURED PRODUCT
+                ================================================== -->
 
-                    $rating = (float) (
-                        $product['average_rating'] ?? 0
-                    );
+                <div class="hot-deals-featured">
 
-                    $review_count = (int) (
-                        $product['review_count'] ?? 0
-                    );
 
-                    ?>
+                    <!-- =================================================
+                         FEATURED IMAGE AREA
+                    ================================================== -->
 
-                    <div
-                        class="<?= $index === 0
-                            ? 'hot-sale-featured'
-                            : 'hot-sale-product'
-                        ?>"
-                    >
+                    <div class="hot-deals-featured-image">
 
-                        <!-- =================================
-                             PRODUCT IMAGE
-                        ================================== -->
 
-                        <div class="hot-sale-image-wrapper">
+                        <!-- SALE BADGE -->
 
-                            <?php if ($discount_percentage > 0): ?>
+                        <span class="hot-deals-sale-badge">
+                            Sale 50%
+                        </span>
 
-                                <span class="hot-sale-badge">
 
-                                    SALE <?= $discount_percentage; ?>%
+                        <!-- BEST SALE BADGE -->
 
-                                </span>
+                        <span class="hot-deals-best-badge">
+                            Best Sale
+                        </span>
 
-                            <?php endif; ?>
 
+                        <!-- ACTION BUTTONS -->
+
+                        <div class="hot-deals-featured-actions">
 
                             <button
                                 type="button"
-                                class="hot-sale-wishlist"
-                                data-product-id="<?= (int) $product['id']; ?>"
-                                aria-label="Add to wishlist"
+                                class="home-action-btn wishlist-btn"
+                                data-product-id="<?= (int) $hot_sale_products[0]['id']; ?>"
+                                title="Add to Wishlist"
                             >
 
                                 <i class="bi bi-heart"></i>
@@ -1012,164 +1096,617 @@ $hot_sale_products = $stmt->fetchAll();
 
                             <button
                                 type="button"
-                                class="hot-sale-quick-view"
-                                data-product-id="<?= (int) $product['id']; ?>"
-                                aria-label="Quick view"
+                                class="home-action-btn quick-view"
+                                data-product-id="<?= (int) $hot_sale_products[0]['id']; ?>"
+                                title="Quick View"
                             >
 
                                 <i class="bi bi-eye"></i>
 
                             </button>
 
+                        </div>
 
-                            <?php if (!empty($product['product_image'])): ?>
 
-                                <img
-                                    src="/Ecomart/assets/uploads/products/<?= e($product['product_image']); ?>"
-                                    alt="<?= e($product['name']); ?>"
-                                    class="hot-sale-product-image"
-                                >
+                        <!-- FEATURED PRODUCT IMAGE -->
 
-                            <?php else: ?>
+                        <?php if (
+                            !empty(
+                                $hot_sale_products[0]['product_image']
+                            )
+                        ): ?>
 
-                                <div class="hot-sale-no-image">
+                            <img
+                                src="/Ecomart/assets/uploads/products/<?= e(
+                                    $hot_sale_products[0]['product_image']
+                                ); ?>"
+                                alt="<?= e(
+                                    $hot_sale_products[0]['name']
+                                ); ?>"
+                                class="hot-deals-featured-img"
+                            >
 
-                                    No Image
+                        <?php else: ?>
 
-                                </div>
+                            <div class="hot-deals-image-placeholder">
+
+                                <i class="bi bi-image"></i>
+
+                            </div>
+
+                        <?php endif; ?>
+
+
+                    </div>
+
+
+                    <!-- =================================================
+                         FEATURED PRODUCT CONTENT
+                    ================================================== -->
+
+                    <div class="hot-deals-featured-content">
+
+
+                        <!-- ADD TO CART -->
+
+                        <button
+                            type="button"
+                            class="hot-deals-featured-cart add-to-cart"
+                            data-product-id="<?= (int) $hot_sale_products[0]['id']; ?>"
+                        >
+
+                            Add to Cart
+
+                            <i class="bi bi-bag"></i>
+
+                        </button>
+
+
+                        <!-- PRODUCT NAME -->
+
+                        <h3 class="hot-deals-featured-name">
+
+                            <a
+                                href="/Ecomart/product/single.php?slug=<?= urlencode(
+                                    $hot_sale_products[0]['slug']
+                                ); ?>"
+                            >
+
+                                <?= e(
+                                    $hot_sale_products[0]['name']
+                                ); ?>
+
+                            </a>
+
+                        </h3>
+
+
+                        <!-- PRICE -->
+
+                        <div class="hot-deals-featured-price">
+
+                            <span class="hot-deals-current-price">
+
+                                $<?= number_format(
+                                    (
+                                        !empty(
+                                            $hot_sale_products[0]['discount_price']
+                                        )
+                                        &&
+                                        $hot_sale_products[0]['discount_price'] > 0
+                                    )
+                                    ?
+                                    $hot_sale_products[0]['discount_price']
+                                    :
+                                    $hot_sale_products[0]['price'],
+                                    2
+                                ); ?>
+
+                            </span>
+
+
+                            <?php if (
+                                !empty(
+                                    $hot_sale_products[0]['discount_price']
+                                )
+                                &&
+                                $hot_sale_products[0]['discount_price'] > 0
+                                &&
+                                $hot_sale_products[0]['discount_price']
+                                <
+                                $hot_sale_products[0]['price']
+                            ): ?>
+
+                                <del class="hot-deals-old-price">
+
+                                    $<?= number_format(
+                                        $hot_sale_products[0]['price'],
+                                        2
+                                    ); ?>
+
+                                </del>
 
                             <?php endif; ?>
 
                         </div>
 
 
-                        <!-- =================================
-                             PRODUCT INFORMATION
-                        ================================== -->
+                        <!-- RATING -->
 
-                        <div class="hot-sale-product-info">
+                        <div class="hot-deals-featured-rating">
 
-                            <h3 class="hot-sale-product-name">
+                            <div class="hot-deals-stars">
 
-                                <?= e($product['name']); ?>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
 
-                            </h3>
-
-
-                            <!-- =================================
-                                 RATING
-                            ================================== -->
-
-                            <div class="hot-sale-rating">
-
-                                <span class="hot-sale-stars">
-
-                                    <?php
-
-                                    for ($star = 1; $star <= 5; $star++):
-
-                                        if ($rating >= $star):
-
-                                    ?>
-
-                                            <i class="bi bi-star-fill"></i>
-
-                                    <?php
-
-                                        elseif ($rating >= ($star - 0.5)):
-
-                                    ?>
-
-                                            <i class="bi bi-star-half"></i>
-
-                                    <?php
-
-                                        else:
-
-                                    ?>
-
-                                            <i class="bi bi-star"></i>
-
-                                    <?php
-
-                                        endif;
-
-                                    endfor;
-
-                                    ?>
-
-                                </span>
+                            </div>
 
 
-                                <span class="hot-sale-feedback">
+                            <span>
 
-                                    <?= $review_count; ?> Feedback
+                                (
+                                <?= (int) (
+                                    $hot_sale_products[0]['review_count']
+                                    ?: 524
+                                ); ?>
+                                Feedback
+                                )
 
+                            </span>
+
+                        </div>
+
+
+                        <!-- COUNTDOWN TEXT -->
+
+                        <div class="hot-deals-countdown-title">
+
+                            Hurry up! Offer ends in:
+
+                        </div>
+
+
+                        <!-- COUNTDOWN -->
+
+                        <div
+                            class="hot-deals-countdown"
+                            data-countdown="2026-09-30 23:59:59"
+                        >
+
+
+                            <!-- DAYS -->
+
+                            <div class="hot-deals-countdown-item">
+
+                                <strong data-days>
+                                    00
+                                </strong>
+
+                                <span>
+                                    DAYS
                                 </span>
 
                             </div>
 
 
-                            <!-- =================================
-                                 PRICE
-                            ================================== -->
-
-                            <div class="hot-sale-price">
-
-                                <span class="hot-sale-current-price">
-
-                                    $<?= number_format(
-                                        $product['discount_price'],
-                                        2
-                                    ); ?>
-
-                                </span>
+                            <div class="hot-deals-countdown-separator">
+                                :
+                            </div>
 
 
-                                <span class="hot-sale-old-price">
+                            <!-- HOURS -->
 
-                                    $<?= number_format(
-                                        $product['price'],
-                                        2
-                                    ); ?>
+                            <div class="hot-deals-countdown-item">
 
+                                <strong data-hours>
+                                    00
+                                </strong>
+
+                                <span>
+                                    HOURS
                                 </span>
 
                             </div>
 
 
-                            <!-- =================================
-                                 ADD TO CART
-                            ================================== -->
+                            <div class="hot-deals-countdown-separator">
+                                :
+                            </div>
 
-                            <button
-                                type="button"
-                                class="hot-sale-cart-btn add-to-cart"
-                                data-product-id="<?= (int) $product['id']; ?>"
-                            >
 
-                                Add to Cart
+                            <!-- MINUTES -->
 
-                                <i class="bi bi-bag"></i>
+                            <div class="hot-deals-countdown-item">
 
-                            </button>
+                                <strong data-minutes>
+                                    00
+                                </strong>
+
+                                <span>
+                                    MINS
+                                </span>
+
+                            </div>
+
+
+                            <div class="hot-deals-countdown-separator">
+                                :
+                            </div>
+
+
+                            <!-- SECONDS -->
+
+                            <div class="hot-deals-countdown-item">
+
+                                <strong data-seconds>
+                                    00
+                                </strong>
+
+                                <span>
+                                    SECS
+                                </span>
+
+                            </div>
+
 
                         </div>
 
                     </div>
 
-                <?php endforeach; ?>
+                </div>
+
+
+                <!-- =================================================
+                     PRODUCTS 2 - 12
+                     
+                     IMPORTANT:
+                     display: contents in CSS makes these 11 cards
+                     participate directly in the 5-column main grid.
+                     
+                     Therefore:
+                     
+                     Product 2  Product 3  Product 4
+                     Product 5  Product 6  Product 7
+                     
+                     Product 8  Product 9  Product 10
+                     Product 11 Product 12
+                     
+                     The final 5 appear underneath the big card.
+                ================================================== -->
+
+                <div class="hot-deals-products">
+
+
+                    <?php
+
+                    $small_hot_products = array_slice(
+                        $hot_sale_products,
+                        1
+                    );
+
+                    ?>
+
+
+                    <?php foreach (
+                        $small_hot_products
+                        as $product
+                    ): ?>
+
+
+                        <?php
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | DISCOUNT CHECK
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $has_discount =
+                            !empty(
+                                $product['discount_price']
+                            )
+                            &&
+                            $product['discount_price'] > 0
+                            &&
+                            $product['discount_price']
+                            <
+                            $product['price'];
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | DISPLAY PRICE
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $display_price =
+                            $has_discount
+                            ?
+                            $product['discount_price']
+                            :
+                            $product['price'];
+
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | DISCOUNT PERCENTAGE
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $discount = 0;
+
+                        if ($has_discount) {
+
+                            $discount = round(
+                                (
+                                    (
+                                        $product['price']
+                                        -
+                                        $product['discount_price']
+                                    )
+                                    /
+                                    $product['price']
+                                ) * 100
+                            );
+
+                        }
+
+                        ?>
+
+
+                        <!-- =================================================
+                             SAME PRODUCT CARD AS POPULAR PRODUCTS
+                        ================================================== -->
+
+                        <div class="home-product-card hot-deals-product-card">
+
+
+                            <!-- =================================================
+                                 PRODUCT IMAGE AREA
+                            ================================================== -->
+
+                            <div class="home-product-image-wrapper">
+
+
+                                <!-- SALE BADGE -->
+
+                                <?php if ($has_discount): ?>
+
+                                    <span class="home-sale-badge">
+
+                                        Sale <?= $discount; ?>%
+
+                                    </span>
+
+                                <?php endif; ?>
+
+
+                                <!-- PRODUCT ACTIONS -->
+
+                                <div class="home-product-actions">
+
+
+                                    <!-- WISHLIST -->
+
+                                    <button
+                                        type="button"
+                                        class="home-action-btn wishlist-btn"
+                                        data-product-id="<?= (int) $product['id']; ?>"
+                                        title="Add to Wishlist"
+                                    >
+
+                                        <i class="bi bi-heart"></i>
+
+                                    </button>
+
+
+                                    <!-- QUICK VIEW -->
+
+                                    <button
+                                        type="button"
+                                        class="home-action-btn quick-view"
+                                        data-product-id="<?= (int) $product['id']; ?>"
+                                        title="Quick View"
+                                    >
+
+                                        <i class="bi bi-eye"></i>
+
+                                    </button>
+
+
+                                </div>
+
+
+                                <!-- PRODUCT IMAGE -->
+
+                                <a
+                                    href="/Ecomart/product/single.php?slug=<?= urlencode(
+                                        $product['slug']
+                                    ); ?>"
+                                    class="home-product-image-link"
+                                >
+
+
+                                    <?php if (
+                                        !empty(
+                                            $product['product_image']
+                                        )
+                                    ): ?>
+
+                                        <img
+                                            src="/Ecomart/assets/uploads/products/<?= e(
+                                                $product['product_image']
+                                            ); ?>"
+                                            alt="<?= e(
+                                                $product['name']
+                                            ); ?>"
+                                            class="home-product-image"
+                                        >
+
+                                    <?php else: ?>
+
+                                        <div class="hot-deals-small-placeholder">
+
+                                            <i class="bi bi-image"></i>
+
+                                        </div>
+
+                                    <?php endif; ?>
+
+
+                                </a>
+
+                            </div>
+
+
+                            <!-- =================================================
+                                 PRODUCT INFORMATION
+                            ================================================== -->
+
+                            <div class="home-product-info">
+
+
+                                <!-- PRODUCT NAME -->
+
+                                <h3 class="home-product-name">
+
+                                    <a
+                                        href="/Ecomart/product/single.php?slug=<?= urlencode(
+                                            $product['slug']
+                                        ); ?>"
+                                    >
+
+                                        <?= e(
+                                            $product['name']
+                                        ); ?>
+
+                                    </a>
+
+                                </h3>
+
+
+                                <!-- PRICE -->
+
+                                <div class="home-product-price">
+
+
+                                    <span class="current-price">
+
+                                        $<?= number_format(
+                                            $display_price,
+                                            2
+                                        ); ?>
+
+                                    </span>
+
+
+                                    <?php if ($has_discount): ?>
+
+                                        <span class="old-price">
+
+                                            $<?= number_format(
+                                                $product['price'],
+                                                2
+                                            ); ?>
+
+                                        </span>
+
+                                    <?php endif; ?>
+
+
+                                </div>
+
+
+                                <!-- =================================================
+                                     RATING UNDER PRICE
+                                ================================================== -->
+
+                                <div class="home-product-rating">
+
+
+                                    <div class="rating-stars">
+
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-half"></i>
+
+                                    </div>
+
+
+                                    <?php if (
+                                        isset(
+                                            $product['review_count']
+                                        )
+                                    ): ?>
+
+                                        <span class="review-count">
+
+                                            (
+                                            <?= (int) $product['review_count']; ?>
+                                            )
+
+                                        </span>
+
+                                    <?php endif; ?>
+
+
+                                </div>
+
+
+                                <!-- =================================================
+                                     ADD TO CART
+                                ================================================== -->
+
+                                <button
+                                    type="button"
+                                    class="home-cart-btn add-to-cart"
+                                    data-product-id="<?= (int) $product['id']; ?>"
+                                    title="Add to Cart"
+                                >
+
+                                    <i class="bi bi-bag"></i>
+
+                                </button>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    <?php endforeach; ?>
+
+
+                </div>
+
 
             </div>
 
 
         <?php else: ?>
 
-            <div class="alert alert-info text-center">
 
-                No hot sale products available right now.
+            <!-- =================================================
+                 PRODUCT COUNT ERROR
+            ================================================== -->
+
+            <div class="alert alert-warning">
+
+                Hot Deals requires exactly 12 active products.
+
+                Currently available:
+
+                <?= count($hot_sale_products); ?>
 
             </div>
+
 
         <?php endif; ?>
 
@@ -1177,7 +1714,6 @@ $hot_sale_products = $stmt->fetchAll();
     </div>
 
 </section>
-
 <!-- =========================================================
      QUICK VIEW MODAL
 ========================================================= -->

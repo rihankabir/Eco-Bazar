@@ -3370,7 +3370,7 @@ select {
 .promo-card {
     position: relative;
 
-    min-height: 260px;
+    min-height: 536px;
 
     overflow: hidden;
 
@@ -3626,165 +3626,157 @@ select {
     }
 
 }
+/* =========================================
+   HOT DEALS SECTION
+========================================= */
 
-/* =========================================================
-   HOT SALE
-========================================================= */
-
-.hot-sale-section {
-    padding: 30px 0 60px;
+.hot-deals-section {
+    padding: 70px 0;
+    background: #ffffff;
 }
 
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-.hot-sale-header {
+.hot-deals-heading {
     display: flex;
-
-    align-items: flex-end;
-
+    align-items: center;
     justify-content: space-between;
 
-    margin-bottom: 25px;
+    margin-bottom: 24px;
 }
 
-
-.hot-sale-title {
+.hot-deals-heading h2 {
     margin: 0;
 
-    font-size: 32px;
-
+    font-size: 28px;
+    line-height: 1.2;
     font-weight: 600;
 
     color: #1a1a1a;
 }
 
-
-.hot-sale-subtitle {
-    margin: 6px 0 0;
-
-    color: #666;
-
-    font-size: 14px;
-}
-
-
-.hot-sale-view-all {
+.hot-deals-view-all {
     display: inline-flex;
-
     align-items: center;
 
-    gap: 7px;
+    gap: 8px;
 
     color: #00b207;
 
-    font-size: 14px;
-
-    font-weight: 600;
-
     text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.hot-deals-view-all:hover {
+    color: #008f05;
 }
 
 
-/* =========================================================
-   GRID
-========================================================= */
+/* =========================================
+   MAIN HOT DEALS GRID
 
-.hot-sale-grid {
+   5 columns
+   3 rows
+
+   Big card:
+   2 columns × 2 rows
+========================================= */
+
+.hot-deals-layout {
     display: grid;
 
     grid-template-columns:
-        repeat(4, minmax(0, 1fr));
+        repeat(5, minmax(0, 1fr));
 
-    gap: 16px;
+    grid-template-rows:
+        repeat(3, 327px);
+
+    width: 100%;
+
+    align-items: stretch;
 }
 
 
-/* =========================================================
-   PRODUCT
-========================================================= */
+/* =========================================
+   BIG FEATURED CARD
 
-.hot-sale-product,
-.hot-sale-featured {
+   2 columns × 2 rows
+
+   528px × 654px approximately
+========================================= */
+
+.hot-deals-featured {
+    grid-column: 1 / span 2;
+    grid-row: 1 / span 2;
+
     position: relative;
 
-    overflow: hidden;
+    width: 100%;
+    height: 654px;
 
-    border: 1px solid #e6e6e6;
+    box-sizing: border-box;
 
-    border-radius: 8px;
+    border: 1px solid #00b207;
+
+    border-radius: 0;
 
     background: #ffffff;
 
-    transition:
-        box-shadow 0.2s ease,
-        transform 0.2s ease;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
 }
 
 
-.hot-sale-product:hover,
-.hot-sale-featured:hover {
-    box-shadow:
-        0 8px 25px rgba(0, 178, 7, 0.14);
+/* =========================================
+   BIG CARD IMAGE
+========================================= */
 
-    transform: translateY(-2px);
-}
-
-
-/* =========================================================
-   IMAGE
-========================================================= */
-
-.hot-sale-image-wrapper {
+.hot-deals-featured-image {
     position: relative;
 
     width: 100%;
+    height: 315px;
 
-    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #ffffff;
 
     overflow: hidden;
-
-    background: #f7f7f7;
 }
 
-
-.hot-sale-product-image {
+.hot-deals-featured-img {
     width: 100%;
-
     height: 100%;
 
     object-fit: contain;
 
-    padding: 15px;
+    padding: 18px;
 
     transition: transform 0.3s ease;
 }
 
-
-.hot-sale-product:hover
-.hot-sale-product-image,
-.hot-sale-featured:hover
-.hot-sale-product-image {
-    transform: scale(1.04);
+.hot-deals-featured:hover .hot-deals-featured-img {
+    transform: scale(1.02);
 }
 
 
-/* =========================================================
-   SALE BADGE
-========================================================= */
+/* =========================================
+   BIG CARD SALE BADGE
+========================================= */
 
-.hot-sale-badge {
+.hot-deals-sale-badge {
     position: absolute;
 
-    top: 12px;
+    top: 20px;
+    left: 20px;
 
-    left: 12px;
+    z-index: 10;
 
-    z-index: 3;
-
-    padding: 5px 9px;
+    padding: 6px 10px;
 
     border-radius: 4px;
 
@@ -3792,255 +3784,812 @@ select {
 
     color: #ffffff;
 
-    font-size: 11px;
-
+    font-size: 12px;
     font-weight: 600;
 }
 
 
-/* =========================================================
-   WISHLIST / QUICK VIEW
-========================================================= */
+/* =========================================
+   BEST SALE BADGE
+========================================= */
 
-.hot-sale-wishlist,
-.hot-sale-quick-view {
+.hot-deals-best-badge {
     position: absolute;
 
-    right: 12px;
+    top: 20px;
+    left: 94px;
 
-    z-index: 3;
+    z-index: 10;
 
-    width: 34px;
+    padding: 6px 10px;
 
-    height: 34px;
+    border-radius: 4px;
 
-    border: 1px solid #e6e6e6;
+    background: #2d8cff;
 
-    border-radius: 50%;
+    color: #ffffff;
 
-    background: #ffffff;
+    font-size: 12px;
+    font-weight: 600;
+}
 
-    color: #555;
+
+/* =========================================
+   BIG CARD HEART / EYE
+========================================= */
+
+.hot-deals-featured-actions {
+    position: absolute;
+
+    top: 20px;
+    right: 20px;
+
+    z-index: 20;
 
     display: flex;
 
-    align-items: center;
+    gap: 8px;
+}
 
+.hot-deals-featured-actions .home-action-btn {
+    width: 40px;
+    height: 40px;
+
+    padding: 0;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #f2f2f2;
+
+    color: #1a1a1a;
+
+    display: flex;
+    align-items: center;
     justify-content: center;
 
     cursor: pointer;
 }
 
-
-.hot-sale-wishlist {
-    top: 12px;
-}
-
-
-.hot-sale-quick-view {
-    top: 54px;
-}
-
-
-.hot-sale-wishlist:hover,
-.hot-sale-quick-view:hover {
+.hot-deals-featured-actions .home-action-btn:hover {
     background: #00b207;
-
-    border-color: #00b207;
 
     color: #ffffff;
 }
 
 
-/* =========================================================
-   PRODUCT INFO
-========================================================= */
+/* =========================================
+   BIG CARD CONTENT
+========================================= */
 
-.hot-sale-product-info {
-    padding: 15px;
+.hot-deals-featured-content {
+    position: relative;
+
+    flex: 1;
+
+    padding: 0 20px 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
 }
 
 
-.hot-sale-product-name {
-    margin: 0 0 8px;
+/* =========================================
+   BIG CARD ADD TO CART
 
-    font-size: 15px;
+   This is the important correction.
 
+   It sits BELOW the image,
+   not floating strangely in the middle.
+========================================= */
+
+.hot-deals-featured-cart {
+    position: relative;
+
+    z-index: 30;
+
+    width: 305px;
+    height: 38px;
+
+    margin-top: -4px;
+    margin-bottom: 22px;
+
+    padding: 0;
+
+    border: none;
+
+    border-radius: 20px;
+
+    background: #00b207;
+
+    color: #ffffff;
+
+    font-size: 14px;
     font-weight: 500;
 
-    line-height: 1.4;
-
-    color: #1a1a1a;
-}
-
-
-/* =========================================================
-   RATING
-========================================================= */
-
-.hot-sale-rating {
     display: flex;
-
     align-items: center;
-
-    gap: 7px;
-
-    margin-bottom: 10px;
-}
-
-
-.hot-sale-stars {
-    display: inline-flex;
-
-    gap: 2px;
-
-    color: #ffb800;
-
-    font-size: 12px;
-}
-
-
-.hot-sale-feedback {
-    color: #777;
-
-    font-size: 11px;
-}
-
-
-/* =========================================================
-   PRICE
-========================================================= */
-
-.hot-sale-price {
-    display: flex;
-
-    align-items: center;
+    justify-content: center;
 
     gap: 8px;
 
-    margin-bottom: 13px;
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.hot-deals-featured-cart i {
+    font-size: 16px;
+}
+
+.hot-deals-featured-cart:hover {
+    background: #008f05;
 }
 
 
-.hot-sale-current-price {
-    color: #1a1a1a;
+/* =========================================
+   BIG CARD PRODUCT NAME
+========================================= */
+
+.hot-deals-featured-name {
+    margin: 0 0 8px;
+
+    color: #00b207;
 
     font-size: 17px;
+    line-height: 1.4;
 
+    font-weight: 500;
+}
+
+.hot-deals-featured-name a {
+    color: inherit;
+
+    text-decoration: none;
+}
+
+
+/* =========================================
+   BIG CARD PRICE
+========================================= */
+
+.hot-deals-featured-price {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    margin-bottom: 7px;
+}
+
+.hot-deals-current-price {
+    color: #1a1a1a;
+
+    font-size: 20px;
     font-weight: 600;
 }
 
+.hot-deals-old-price {
+    color: #999999;
 
-.hot-sale-old-price {
-    color: #999;
-
-    font-size: 13px;
+    font-size: 16px;
 
     text-decoration: line-through;
 }
 
 
-/* =========================================================
-   CART BUTTON
-========================================================= */
+/* =========================================
+   BIG CARD RATING
+========================================= */
 
-.hot-sale-cart-btn {
-    width: 100%;
-
+.hot-deals-featured-rating {
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
-    gap: 8px;
+    gap: 6px;
 
-    padding: 10px 15px;
+    margin-bottom: 17px;
+}
 
-    border: 0;
+.hot-deals-stars {
+    display: flex;
+    align-items: center;
 
-    border-radius: 5px;
+    gap: 1px;
+
+    color: #ff8a00;
+
+    font-size: 14px;
+}
+
+.hot-deals-featured-rating span {
+    color: #777777;
+
+    font-size: 11px;
+}
+
+
+/* =========================================
+   BIG CARD COUNTDOWN
+========================================= */
+
+.hot-deals-countdown-title {
+    margin-bottom: 9px;
+
+    color: #777777;
+
+    font-size: 13px;
+}
+
+.hot-deals-countdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+}
+
+.hot-deals-countdown-item {
+    min-width: 42px;
+
+    text-align: center;
+}
+
+.hot-deals-countdown-item strong {
+    display: block;
+
+    color: #1a1a1a;
+
+    font-size: 17px;
+    line-height: 1.1;
+
+    font-weight: 600;
+}
+
+.hot-deals-countdown-item span {
+    display: block;
+
+    margin-top: 4px;
+
+    color: #777777;
+
+    font-size: 8px;
+
+    text-transform: uppercase;
+}
+
+.hot-deals-countdown-separator {
+    margin-top: -12px;
+
+    color: #777777;
+
+    font-size: 17px;
+}
+
+
+/* =========================================
+   PRODUCT WRAPPER
+
+   IMPORTANT:
+   Its children become direct grid
+   items of .hot-deals-layout.
+========================================= */
+
+.hot-deals-products {
+    display: contents;
+}
+
+
+/* =========================================
+   SMALL PRODUCT CARDS
+
+   KEEP SAME DESIGN AS POPULAR PRODUCTS
+========================================= */
+
+.hot-deals-product-card {
+    width: 100%;
+    height: 100%;
+
+    min-width: 0;
+
+    box-sizing: border-box;
+
+    border-top: 1px solid #e6e6e6;
+    border-right: 1px solid #e6e6e6;
+    border-bottom: 1px solid #e6e6e6;
+    border-left: 0;
+
+    border-radius: 0;
+
+    background: #ffffff;
+}
+
+
+/* =========================================
+   PRODUCT IMAGE
+
+   Same visual proportions as
+   Popular Products
+========================================= */
+
+.hot-deals-product-card .home-product-image-wrapper {
+    height: 205px;
+}
+
+.hot-deals-product-card .home-product-image {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    padding: 10px;
+}
+
+
+/* =========================================
+   PRODUCT INFORMATION
+
+   Same Popular Products spacing
+========================================= */
+
+.hot-deals-product-card .home-product-info {
+    padding: 10px 12px 12px;
+}
+
+.hot-deals-product-card .home-product-name {
+    font-size: 14px;
+
+    line-height: 1.35;
+
+    margin-bottom: 6px;
+}
+
+.hot-deals-product-card .home-product-price {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    margin-bottom: 3px;
+}
+
+.hot-deals-product-card .home-product-rating {
+    margin-top: 0;
+}
+
+
+/* =========================================
+   SMALL CARD SALE BADGE
+========================================= */
+
+.hot-deals-product-card .home-sale-badge {
+    z-index: 5;
+}
+
+
+/* =========================================
+   SMALL CARD ACTIONS
+========================================= */
+
+.hot-deals-product-card .home-product-actions {
+    z-index: 10;
+}
+
+
+/* =========================================
+   LARGE DESKTOP
+========================================= */
+
+@media (min-width: 1400px) {
+
+    .hot-deals-layout {
+        grid-template-rows:
+            repeat(3, 327px);
+    }
+
+    .hot-deals-product-card .home-product-image-wrapper {
+        height: 205px;
+    }
+}
+
+
+/* =========================================
+   1200px - 1399px
+
+   Keep proportions but reduce row height
+========================================= */
+
+@media (min-width: 1200px) and (max-width: 1399px) {
+
+    .hot-deals-layout {
+        grid-template-rows:
+            repeat(3, 300px);
+    }
+
+    .hot-deals-featured {
+        height: 600px;
+    }
+
+    .hot-deals-product-card .home-product-image-wrapper {
+        height: 180px;
+    }
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1199px) {
+
+    .hot-deals-layout {
+        grid-template-columns:
+            repeat(5, minmax(0, 1fr));
+
+        grid-template-rows:
+            repeat(3, 270px);
+    }
+
+    .hot-deals-featured {
+        height: 540px;
+    }
+
+    .hot-deals-featured-image {
+        height: 260px;
+    }
+
+    .hot-deals-product-card .home-product-image-wrapper {
+        height: 155px;
+    }
+
+    .hot-deals-product-card .home-product-info {
+        padding: 8px;
+    }
+}
+
+
+/* =========================================
+   BELOW 991px
+
+   Change to normal 3-column layout.
+========================================= */
+
+@media (max-width: 991px) {
+
+    .hot-deals-layout {
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+
+        grid-template-rows: auto;
+
+        width: 100%;
+    }
+
+    .hot-deals-featured {
+        grid-column: 1 / -1;
+        grid-row: auto;
+
+        width: 100%;
+        height: auto;
+
+        min-height: 600px;
+    }
+
+    .hot-deals-products {
+        display: contents;
+    }
+
+    .hot-deals-product-card {
+        height: auto;
+        min-height: 280px;
+    }
+
+    .hot-deals-product-card .home-product-image-wrapper {
+        height: 180px;
+    }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 767px) {
+
+    .hot-deals-section {
+        padding: 50px 0;
+    }
+
+    .hot-deals-heading h2 {
+        font-size: 24px;
+    }
+
+    .hot-deals-layout {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .hot-deals-featured {
+        grid-column: 1 / -1;
+
+        min-height: 600px;
+    }
+
+    .hot-deals-featured-image {
+        height: 300px;
+    }
+
+    .hot-deals-product-card .home-product-image-wrapper {
+        height: 170px;
+    }
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 575px) {
+
+    .hot-deals-heading h2 {
+        font-size: 22px;
+    }
+
+    .hot-deals-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .hot-deals-featured {
+        grid-column: 1;
+
+        min-height: 580px;
+    }
+
+    .hot-deals-product-card {
+        min-height: 300px;
+    }
+
+    .hot-deals-product-card .home-product-image-wrapper {
+        height: 220px;
+    }
+
+    .hot-deals-featured-cart {
+        width: 80%;
+    }
+}
+.hot-deals-product-card .home-product-name,
+.hot-deals-product-card .home-product-name a {
+    color: #1a1a1a;
+    text-decoration: none;
+}
+
+.hot-deals-product-card .home-product-name a:hover {
+    color: #00b207;
+    text-decoration: none;
+}
+.hot-deals-product-card .home-product-price {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.hot-deals-product-card .home-product-price .current-price {
+    color: #1a1a1a;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.hot-deals-product-card .home-product-price .old-price {
+    color: #999999;
+    font-size: 13px;
+    text-decoration: line-through;
+}
+.hot-deals-featured-actions {
+    position: absolute;
+
+    top: 311px;
+    left: 0;
+
+    width: 100%;
+
+    z-index: 30;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    pointer-events: none;
+}
+.hot-deals-featured-actions .home-action-btn {
+    width: 38px;
+    height: 38px;
+
+    padding: 0;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #f2f2f2;
+
+    color: #1a1a1a;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    pointer-events: auto;
+
+    flex-shrink: 0;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+.hot-deals-featured-actions .wishlist-btn {
+    margin-right: 10px;
+}
+
+.hot-deals-featured-actions .quick-view {
+    margin-left: 10px;
+}
+.hot-deals-featured-cart {
+    position: relative;
+
+    z-index: 25;
+
+    width: 305px;
+    height: 38px;
+
+    margin-top: -4px;
+    margin-bottom: 22px;
+
+    padding: 0;
+
+    border: none;
+    border-radius: 20px;
 
     background: #00b207;
 
     color: #ffffff;
 
-    font-size: 13px;
+    font-size: 14px;
+    font-weight: 500;
 
-    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
 
     cursor: pointer;
+
+    transition: background 0.2s ease;
 }
 
-
-.hot-sale-cart-btn:hover {
-    background: #009406;
+.hot-deals-featured-cart:hover {
+    background: #008f05;
 }
 
-
+.hot-deals-featured-cart i {
+    font-size: 15px;
+}
 /* =========================================================
-   NO IMAGE
+   HOT DEALS FEATURED ACTIONS
+   Heart + Eye beside Add to Cart
 ========================================================= */
 
-.hot-sale-no-image {
+.hot-deals-featured-image {
+    overflow: visible;
+}
+
+
+/* Action container */
+
+.hot-deals-featured-actions {
+    position: absolute;
+
+    top: auto;
+    bottom: 7px;
+
+    left: 0;
+
     width: 100%;
 
-    height: 100%;
+    z-index: 50;
 
     display: flex;
 
     align-items: center;
+    justify-content: space-around;
 
+gap: 274px !important;
+
+    pointer-events: none;
+}
+
+
+/* Heart + Eye buttons */
+
+.hot-deals-featured-actions .home-action-btn {
+    position: relative;
+
+    width: 38px;
+    height: 38px;
+
+    flex: 0 0 38px;
+
+    padding: 0;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #f2f2f2;
+
+    color: #1a1a1a;
+
+    display: flex;
+
+    align-items: center;
     justify-content: center;
 
-    color: #999;
+    pointer-events: auto;
 
-    font-size: 13px;
+    cursor: pointer;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+    transition: all 0.2s ease;
 }
 
 
-/* =========================================================
-   RESPONSIVE
-========================================================= */
+.hot-deals-featured-actions .home-action-btn:hover {
+    background: #00b207;
 
-@media (max-width: 991px) {
-
-    .hot-sale-grid {
-        grid-template-columns:
-            repeat(3, minmax(0, 1fr));
-    }
-
+    color: #ffffff;
 }
 
 
-@media (max-width: 767px) {
+.hot-deals-featured-actions .home-action-btn i {
+    font-size: 17px;
 
-    .hot-sale-grid {
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
-    }
-
-    .hot-sale-title {
-        font-size: 26px;
-    }
-
+    line-height: 1;
 }
+.hot-deals-featured-cart {
+    position: relative;
 
+    z-index: 40;
 
-@media (max-width: 575px) {
+    width: 305px;
 
-    .hot-sale-header {
-        align-items: flex-start;
+    height: 38px;
 
-        gap: 15px;
-    }
+    margin-top: -46px;
 
-    .hot-sale-grid {
-        grid-template-columns: 1fr;
-    }
+    margin-bottom: 22px;
 
-    .hot-sale-title {
-        font-size: 24px;
-    }
+    border: none;
 
+    border-radius: 22px;
+
+    background: #00b207;
+
+    color: #ffffff;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    cursor: pointer;
 }
