@@ -1720,7 +1720,14 @@ $hot_sale_products = array_values(
         <div class="row">
             <div class="maindis-banner">
 <div class="maindis-content">
+<p class="primarytext">Summer Sale</p>
+<div class="firstsail"><h1><span class="mainsail me-2">37%</span>OFF</h1></div>
 
+<p class="lastsail">Free on all your order, Free Shipping and  30 days money-back guarantee</p>
+<a href="#" class="shop-btn">
+                            Shop now
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
 </div>
 <img src="assets/uploads/discountbanner/discountbanner.png" alt="discountbanner"class="img-fluid">
     </div>

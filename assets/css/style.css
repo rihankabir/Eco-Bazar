@@ -4593,3 +4593,32 @@ gap: 274px !important;
 
     cursor: pointer;
 }
+.maindis-banner{
+    position: relative;
+    overflow: hidden;
+}
+.maindis-banner img{
+    height: 100%;
+
+    object-fit: contain;
+}
+.firstsail .mainsail{
+}
+.maindis-content{
+    position: absolute;
+    top: 0;
+    left: 160px;
+    z-index: 5;
+}
+.maindis-content .primarytext{
+    color: white;
+}
+.maindis-content h1{
+    color: white;
+}
+.maindis-content .mainsail{
+    color: #FF8A00;
+}
+.maindis-content .lastsail{
+    color: white;
+}
