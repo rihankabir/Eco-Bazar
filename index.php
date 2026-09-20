@@ -1716,25 +1716,58 @@ $hot_sale_products = array_values(
 </section>
 <!--discount banner-->
 <section class="discount-banner">
-    <div class="container">
-        <div class="row">
-            <div class="maindis-banner">
-<div class="maindis-content">
-<p class="primarytext">Summer Sale</p>
-<div class="firstsail"><h1><span class="mainsail me-2">37%</span>OFF</h1></div>
 
-<p class="lastsail">Free on all your order, Free Shipping and  30 days money-back guarantee</p>
-<a href="#" class="shop-btn">
-                            Shop now
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-12 px-0">
+
+                <div class="maindis-banner">
+
+                    <!-- Banner Image -->
+                    <img
+                        src="/Ecomart/assets/uploads/discountbanner/discountbanner.png"
+                        alt="Summer Sale"
+                        class="maindis-banner-image"
+                    >
+
+                    <!-- Banner Content -->
+                    <div class="maindis-content">
+
+                        <p class="primarytext">
+                            Summer Sale
+                        </p>
+
+                        <h1 class="maindis-title">
+                            <span class="mainsail">37%</span>
+                            <span class="lastsail-title">OFF</span>
+                        </h1>
+
+                        <p class="maindis-description">
+                            Free on all your order, Free Shipping and 30 days
+                            money-back guarantee
+                        </p>
+
+                        <a
+                            href="/Ecomart/products.php"
+                            class="shop-btn"
+                        >
+                            Shop Now
                             <i class="bi bi-arrow-right"></i>
                         </a>
-</div>
-<img src="assets/uploads/discountbanner/discountbanner.png" alt="discountbanner"class="img-fluid">
-    </div>
-        </div>
-    </div>
-</section>
 
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 
 <!--discount banner end-->
 
