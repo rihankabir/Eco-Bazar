@@ -179,7 +179,7 @@
                             href="/Ecomart/"
                             class="footer-logo"
                         >
-                           
+                           <img src="/Ecomart/assets/images/logo/ecobazar-logo.png">
                         </a>
 
 
