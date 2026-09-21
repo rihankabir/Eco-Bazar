@@ -5976,3 +5976,709 @@ gap:13px;
     }
 
 }
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.site-footer {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* =========================================================
+   NEWSLETTER SECTION
+========================================================= */
+
+.footer-newsletter {
+    width: 100%;
+    padding: 32px 0;
+
+    background: #f2f2f2;
+}
+
+
+/* Newsletter content */
+
+.footer-newsletter-content {
+    width: 100%;
+}
+
+.footer-newsletter-content h2 {
+    margin: 0 0 8px;
+
+    color: #1a1a1a;
+
+    font-size: 18px;
+    font-weight: 600;
+
+    line-height: 1.3;
+}
+
+.footer-newsletter-content p {
+    max-width: 350px;
+
+    margin: 0;
+
+    color: #808080;
+
+    font-size: 10px;
+    font-weight: 400;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   NEWSLETTER INPUT
+========================================================= */
+
+.footer-newsletter-form {
+    width: 100%;
+}
+
+.footer-subscribe-box {
+    width: 100%;
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+
+    overflow: hidden;
+}
+
+
+/* Envelope icon */
+
+.footer-email-icon {
+    flex: 0 0 auto;
+
+    margin-left: 14px;
+
+    color: #999999;
+
+    font-size: 14px;
+}
+
+
+/* Email input */
+
+.footer-email-input {
+    width: 100%;
+    height: 42px;
+
+    min-width: 0;
+
+    padding: 0 12px;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    color: #333333;
+
+    font-size: 11px;
+    font-weight: 400;
+}
+
+.footer-email-input::placeholder {
+    color: #999999;
+}
+
+.footer-email-input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+
+/* Subscribe button */
+
+.footer-subscribe-button {
+    flex: 0 0 auto;
+
+    height: 44px;
+
+    padding: 0 22px;
+
+    border: none;
+    border-radius: 4px;
+
+    background: #00b207;
+
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.footer-subscribe-button:hover {
+    background: #009c06;
+}
+
+.footer-subscribe-button:active {
+    transform: scale(0.98);
+}
+
+
+/* =========================================================
+   NEWSLETTER SOCIAL ICONS
+========================================================= */
+
+.footer-social {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 8px;
+}
+
+.footer-social-link {
+    width: 32px;
+    height: 32px;
+
+    flex: 0 0 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: transparent;
+
+    color: #4d4d4d;
+
+    font-size: 13px;
+
+    text-decoration: none;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.footer-social-link:hover {
+    background: #00b207;
+
+    color: #ffffff;
+
+    text-decoration: none;
+}
+
+.footer-social-link i {
+    line-height: 1;
+}
+
+
+/* =========================================================
+   DARK FOOTER MAIN
+========================================================= */
+
+.footer-main {
+    width: 100%;
+
+    padding: 42px 0 38px;
+
+    background: #1a1a1a;
+}
+
+
+/* =========================================================
+   ECOMART ABOUT
+========================================================= */
+
+.footer-about {
+    width: 100%;
+
+    padding-right: 25px;
+}
+
+
+/* Logo */
+
+.footer-logo {
+    display: inline-block;
+
+    margin: 0 0 15px;
+
+    color: #ffffff;
+
+    font-size: 24px;
+    font-weight: 600;
+
+    line-height: 1;
+
+    text-decoration: none;
+}
+
+.footer-logo:hover {
+    color: #00b207;
+
+    text-decoration: none;
+}
+
+
+/* Description */
+
+.footer-description {
+    max-width: 330px;
+
+    margin: 0 0 18px;
+
+    color: #808080;
+
+    font-size: 14px;
+    font-weight: 400;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   FOOTER CONTACT
+========================================================= */
+
+.footer-contact {
+    width: 100%;
+}
+
+.footer-contact-item {
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 5px;
+
+    color: #ffffff;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+}
+
+.footer-contact-item strong {
+    color: #ffffff;
+
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.footer-contact-or {
+    margin: 3px 0;
+
+    color: #666666;
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   FOOTER WIDGETS
+========================================================= */
+
+.footer-widget {
+    width: 100%;
+}
+
+.footer-widget h3 {
+    margin: 0 0 17px;
+
+    color: #ffffff;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    line-height: 1.3;
+}
+
+.footer-widget ul {
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+}
+
+.footer-widget ul li {
+    margin: 0 0 10px;
+}
+
+.footer-widget ul li:last-child {
+    margin-bottom: 0;
+}
+
+.footer-widget ul li a {
+    color: #808080;
+
+    font-size: 15px;
+    font-weight: 400;
+
+    line-height: 1.4;
+
+    text-decoration: none;
+
+    transition: color 0.2s ease;
+}
+
+.footer-widget ul li a:hover {
+    color: #00b207;
+
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   FOOTER BOTTOM
+========================================================= */
+
+.footer-bottom {
+    width: 100%;
+
+    padding: 16px 0;
+
+    background: #1a1a1a;
+
+    border-top: 1px solid #333333;
+}
+
+
+/* Copyright */
+
+.footer-copyright {
+    margin: 0;
+
+    color: #808080;
+
+    font-size: 15px;
+    font-weight: 400;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   PAYMENT
+========================================================= */
+
+.footer-payment {
+    display: flex;
+
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 8px;
+}
+
+.footer-payment > span {
+    color: #808080;
+
+    font-size: 9px;
+}
+
+.footer-payment-icons {
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+}
+
+.payment-card {
+    width: 29px;
+    height: 19px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #ffffff;
+
+    border-radius: 3px;
+
+    color: #555555;
+
+    font-size: 11px;
+}
+
+.payment-card i {
+    line-height: 1;
+}
+
+
+/* =========================================================
+   LARGE TABLET
+========================================================= */
+
+@media (max-width: 991.98px) {
+
+
+    /* Newsletter */
+
+    .footer-newsletter {
+        padding: 30px 0;
+    }
+
+    .footer-newsletter-content {
+        margin-bottom: 18px;
+    }
+
+    .footer-newsletter-content p {
+        max-width: 500px;
+    }
+
+    .footer-social {
+        justify-content: flex-start;
+
+        margin-top: 18px;
+    }
+
+
+    /* Footer main */
+
+    .footer-main {
+        padding: 38px 0 32px;
+    }
+
+    .footer-about {
+        padding-right: 0;
+
+        margin-bottom: 30px;
+    }
+
+    .footer-widget {
+        margin-bottom: 25px;
+    }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 767.98px) {
+
+
+    /* Newsletter */
+
+    .footer-newsletter {
+        padding: 28px 0;
+    }
+
+    .footer-newsletter-content {
+        margin-bottom: 18px;
+
+        text-align: center;
+    }
+
+    .footer-newsletter-content h2 {
+        font-size: 17px;
+    }
+
+    .footer-newsletter-content p {
+        max-width: 100%;
+
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+
+    /* Newsletter form */
+
+    .footer-newsletter-form {
+        margin-bottom: 18px;
+    }
+
+
+    /* Social */
+
+    .footer-social {
+        justify-content: center;
+
+        margin-top: 0;
+    }
+
+
+    /* Main footer */
+
+    .footer-main {
+        padding: 35px 0 25px;
+    }
+
+    .footer-about {
+        padding-right: 0;
+
+        margin-bottom: 32px;
+
+        text-align: center;
+    }
+
+    .footer-description {
+        max-width: 500px;
+
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .footer-contact {
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+    }
+
+
+    /* Widgets */
+
+    .footer-widget {
+        margin-bottom: 28px;
+    }
+
+    .footer-widget h3 {
+        margin-bottom: 13px;
+    }
+
+
+    /* Bottom */
+
+    .footer-bottom {
+        padding: 15px 0;
+    }
+
+    .footer-copyright {
+        margin-bottom: 12px;
+
+        text-align: center;
+    }
+
+    .footer-payment {
+        justify-content: center;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 575.98px) {
+
+
+    /* Newsletter */
+
+    .footer-newsletter {
+        padding: 25px 0;
+    }
+
+    .footer-newsletter-content h2 {
+        font-size: 16px;
+    }
+
+    .footer-newsletter-content p {
+        font-size: 9px;
+    }
+
+
+    /* Input */
+
+    .footer-subscribe-box {
+        height: 42px;
+    }
+
+    .footer-email-icon {
+        margin-left: 11px;
+
+        font-size: 12px;
+    }
+
+    .footer-email-input {
+        height: 40px;
+
+        padding: 0 8px;
+
+        font-size: 10px;
+    }
+
+    .footer-subscribe-button {
+        height: 42px;
+
+        padding: 0 15px;
+
+        font-size: 10px;
+    }
+
+
+    /* Social */
+
+    .footer-social-link {
+        width: 30px;
+        height: 30px;
+
+        flex-basis: 30px;
+
+        font-size: 12px;
+    }
+
+
+    /* Main footer */
+
+    .footer-main {
+        padding: 30px 0 20px;
+    }
+
+    .footer-logo {
+        font-size: 22px;
+    }
+
+    .footer-description {
+        font-size: 9px;
+    }
+
+    .footer-widget h3 {
+        font-size: 11px;
+    }
+
+    .footer-widget ul li a {
+        font-size: 9px;
+    }
+
+
+    /* Bottom */
+
+    .footer-copyright {
+        font-size: 8px;
+    }
+
+    .footer-payment > span {
+        font-size: 8px;
+    }
+
+    .payment-card {
+        width: 27px;
+        height: 18px;
+
+        font-size: 10px;
+    }
+
+}
