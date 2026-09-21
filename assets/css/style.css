@@ -5817,3 +5817,162 @@ gap:13px;
     }
 
 }
+
+/* =========================================================
+   INSTAGRAM SECTION
+========================================================= */
+
+.instagram-section {
+    width: 100%;
+
+    padding: 30px 0 34px;
+
+    background: #ffffff;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.instagram-title {
+    margin: 0 0 18px;
+
+    color: #1a1a1a;
+
+    font-size: 18px;
+    font-weight: 600;
+
+    line-height: 1.2;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   INSTAGRAM GRID
+========================================================= */
+
+.instagram-grid {
+    display: grid;
+
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+
+    gap: 8px;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   INSTAGRAM ITEM
+========================================================= */
+
+.instagram-item {
+    position: relative;
+
+    display: block;
+
+    width: 100%;
+
+    aspect-ratio: 1 / 1;
+
+    overflow: hidden;
+
+    border-radius: 4px;
+
+    text-decoration: none;
+}
+
+.instagram-item img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform 0.3s ease;
+}
+
+
+/* =========================================================
+   INSTAGRAM OVERLAY
+========================================================= */
+
+.instagram-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0, 178, 7, 0.65);
+
+    color: #ffffff;
+
+    opacity: 0;
+
+    transition: opacity 0.25s ease;
+}
+
+.instagram-overlay i {
+    font-size: 22px;
+}
+
+.instagram-item:hover img {
+    transform: scale(1.05);
+}
+
+.instagram-item:hover .instagram-overlay {
+    opacity: 1;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 991.98px) {
+
+    .instagram-grid {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+
+        gap: 6px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767.98px) {
+
+    .instagram-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+
+        gap: 8px;
+    }
+
+}
+
+
+@media (max-width: 575.98px) {
+
+    .instagram-section {
+        padding-top: 25px;
+        padding-bottom: 28px;
+    }
+
+    .instagram-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+
+        gap: 6px;
+    }
+
+}

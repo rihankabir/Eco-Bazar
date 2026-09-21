@@ -2653,7 +2653,133 @@ $latestNews = $latestNewsStmt->fetchAll();
     </div>
 
 </section>
+<!-- =========================================
+     INSTAGRAM
+========================================= -->
 
+<section class="instagram-section">
+
+    <div class="container">
+
+        <h2 class="instagram-title">
+            Follow us on Instagram
+        </h2>
+
+
+        <div class="instagram-grid">
+
+            <a
+                href="#"
+                class="instagram-item"
+                aria-label="Instagram post"
+            >
+
+                <img
+                    src="/Ecomart/assets/images/instagram/instagram-1.png"
+                    alt="Ecomart Instagram"
+                >
+
+                <span class="instagram-overlay">
+                    <i class="bi bi-instagram"></i>
+                </span>
+
+            </a>
+
+
+            <a
+                href="#"
+                class="instagram-item"
+                aria-label="Instagram post"
+            >
+
+                <img
+                    src="/Ecomart/assets/images/instagram/instagram-2.png"
+                    alt="Ecomart Instagram"
+                >
+
+                <span class="instagram-overlay">
+                    <i class="bi bi-instagram"></i>
+                </span>
+
+            </a>
+
+
+            <a
+                href="#"
+                class="instagram-item"
+                aria-label="Instagram post"
+            >
+
+                <img
+                    src="/Ecomart/assets/images/instagram/instagram-3.png"
+                    alt="Ecomart Instagram"
+                >
+
+                <span class="instagram-overlay">
+                    <i class="bi bi-instagram"></i>
+                </span>
+
+            </a>
+
+
+            <a
+                href="#"
+                class="instagram-item"
+                aria-label="Instagram post"
+            >
+
+                <img
+                    src="/Ecomart/assets/images/instagram/instagram-4.png"
+                    alt="Ecomart Instagram"
+                >
+
+                <span class="instagram-overlay">
+                    <i class="bi bi-instagram"></i>
+                </span>
+
+            </a>
+
+
+            <a
+                href="#"
+                class="instagram-item"
+                aria-label="Instagram post"
+            >
+
+                <img
+                    src="/Ecomart/assets/images/instagram/instagram-5.png"
+                    alt="Ecomart Instagram"
+                >
+
+                <span class="instagram-overlay">
+                    <i class="bi bi-instagram"></i>
+                </span>
+
+            </a>
+
+
+            <a
+                href="#"
+                class="instagram-item"
+                aria-label="Instagram post"
+            >
+
+                <img
+                    src="/Ecomart/assets/images/instagram/instagram-6.png"
+                    alt="Ecomart Instagram"
+                >
+
+                <span class="instagram-overlay">
+                    <i class="bi bi-instagram"></i>
+                </span>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
 
 
 <!-- =========================================================
