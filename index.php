@@ -2361,10 +2361,7 @@ $latestNews = $latestNewsStmt->fetchAll();
 
 
                         <p class="testimonial-text">
-                            Pellentesque eu nibh eget mauris congue
-                            mattis mattis nec tellus. Phasellus imperdiet
-                            elit eu magna dictum, bibendum cursus velit
-                            sodales.
+                            Pellentesque eu nibh eget mauris congue mattis mattis nec tellus. Phasellus imperdiet elit eu magna dictum, bibendum cursus velit sodales. Donec sed neque eget
                         </p>
 
 
@@ -2424,10 +2421,7 @@ $latestNews = $latestNewsStmt->fetchAll();
 
 
                         <p class="testimonial-text">
-                            Pellentesque eu nibh eget mauris congue
-                            mattis mattis nec tellus. Phasellus imperdiet
-                            elit eu magna dictum, bibendum cursus velit
-                            sodales.
+                           Pellentesque eu nibh eget mauris congue mattis mattis nec tellus. Phasellus imperdiet elit eu magna dictum, bibendum cursus velit sodales. Donec sed neque eget
                         </p>
 
 
@@ -2487,10 +2481,7 @@ $latestNews = $latestNewsStmt->fetchAll();
 
 
                         <p class="testimonial-text">
-                            Pellentesque eu nibh eget mauris congue
-                            mattis mattis nec tellus. Phasellus imperdiet
-                            elit eu magna dictum, bibendum cursus velit
-                            sodales.
+                           Pellentesque eu nibh eget mauris congue mattis mattis nec tellus. Phasellus imperdiet elit eu magna dictum, bibendum cursus velit sodales. Donec sed neque eget
                         </p>
 
 
@@ -2605,6 +2596,66 @@ $latestNews = $latestNewsStmt->fetchAll();
     </div>
 
 </section>
+<!-- =========================================
+     BRAND SECTION
+========================================= -->
+
+<section class="brand-section">
+
+    <div class="container">
+
+        <div class="brand-list">
+
+            <div class="brand-item">
+                <img
+                    src="/Ecomart/assets/images/brands/steps.png"
+                    alt="Steps"
+                >
+            </div>
+
+            <div class="brand-item">
+                <img
+                    src="/Ecomart/assets/images/brands/ringo.png"
+                    alt="Ringo"
+                >
+            </div>
+
+            <div class="brand-item">
+                <img
+                    src="/Ecomart/assets/images/brands/food.png"
+                    alt="Food"
+                >
+            </div>
+
+            <div class="brand-item">
+                <img
+                    src="/Ecomart/assets/images/brands/foods.png"
+                    alt="Book Off"
+                >
+            </div>
+
+            <div class="brand-item">
+                <img
+                    src="/Ecomart/assets/images/brands/book-of.png"
+                    alt="G Series"
+                >
+            </div>
+
+            <div class="brand-item">
+                <img
+                    src="/Ecomart/assets/images/brands/g-series.png"
+                    alt="Brand"
+                >
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
 <!-- =========================================================
      QUICK VIEW MODAL
 ========================================================= -->
