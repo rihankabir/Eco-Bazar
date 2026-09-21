@@ -2373,7 +2373,7 @@ $latestNews = $latestNewsStmt->fetchAll();
                             <div class="testimonial-customer">
 
                                 <img
-                                    src="/Ecomart/assets/images/testimonials/customer-1.jpg"
+                                    src="/Ecomart/assets/images/testimonials/customer-1.png"
                                     alt="Robert Fox"
                                     class="testimonial-avatar"
                                 >
@@ -2436,7 +2436,7 @@ $latestNews = $latestNewsStmt->fetchAll();
                             <div class="testimonial-customer">
 
                                 <img
-                                    src="/Ecomart/assets/images/testimonials/customer-2.jpg"
+                                    src="/Ecomart/assets/images/testimonials/customer-2.png"
                                     alt="Jane Cooper"
                                     class="testimonial-avatar"
                                 >
@@ -2499,7 +2499,7 @@ $latestNews = $latestNewsStmt->fetchAll();
                             <div class="testimonial-customer">
 
                                 <img
-                                    src="/Ecomart/assets/images/testimonials/customer-3.jpg"
+                                    src="/Ecomart/assets/images/testimonials/customer-3.png"
                                     alt="Eleanor Pena"
                                     class="testimonial-avatar"
                                 >
@@ -2562,7 +2562,7 @@ $latestNews = $latestNewsStmt->fetchAll();
                             <div class="testimonial-customer">
 
                                 <img
-                                    src="/Ecomart/assets/images/testimonials/customer-4.jpg"
+                                    src="/Ecomart/assets/images/testimonials/customer-4.png"
                                     alt="Guy Hawkins"
                                     class="testimonial-avatar"
                                 >
