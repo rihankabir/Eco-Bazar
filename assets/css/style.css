@@ -4713,7 +4713,7 @@ gap: 274px !important;
 
     margin: 0;
     padding: 0;
-
+gap:13px;
     color: #ffffff;
 
     font-size: 4.24cqw;
@@ -4776,6 +4776,7 @@ gap: 274px !important;
     gap: 1.35cqw;
 
     padding: 0;
+    margin:0;
 
     background: #00b207;
     color: #ffffff;
@@ -4890,5 +4891,15 @@ gap: 274px !important;
         width: 100%;
         max-width: 100%;
     }
-
+.maindis-description {
+    width: 100%;
+    max-width: 38cqw;
+    margin: 2.4cqw 0 -1.5cqw;
+}
+.shop-btn {
+        min-width: 53px;
+    }
+.maindis-title {
+gap:13px;
+}
 }
