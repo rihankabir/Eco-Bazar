@@ -2661,7 +2661,7 @@ $latestNews = $latestNewsStmt->fetchAll();
 
     <div class="container">
 
-        <h2 class="instagram-title">
+        <h2 class="instagram-title mt-2">
             Follow us on Instagram
         </h2>
 
