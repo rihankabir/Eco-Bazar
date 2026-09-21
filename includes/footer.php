@@ -179,7 +179,7 @@
                             href="/Ecomart/"
                             class="footer-logo"
                         >
-                            <?= e(APP_NAME); ?>
+                           
                         </a>
 
 
@@ -187,7 +187,7 @@
 
                         <p class="footer-description">
 
-                           
+                           Morbi cursus porttitor enim lobortis molestie. Duis gravida turpis dui, eget bibendum magna congue nec.
 
                         </p>
 
