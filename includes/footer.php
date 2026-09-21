@@ -49,7 +49,9 @@
     src="/Ecomart/assets/js/account.js"
 ></script>
 <!-- Cart -->
-
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+<script src="/Ecomart/assets/js/testimonials.js"></script>
 <script
     src="/Ecomart/assets/js/cart.js"
 ></script>

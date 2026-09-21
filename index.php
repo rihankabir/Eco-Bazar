@@ -324,7 +324,7 @@ $featuredProductsStmt = $pdo->prepare("
     WHERE products.status = 'active'
     AND products.featured = 1
 
-    ORDER BY products.created_at DESC, products.id DESC
+    ORDER BY products.created_at DESC, products.id ASC
 
     LIMIT 5
 ");
@@ -2297,7 +2297,314 @@ $latestNews = $latestNewsStmt->fetchAll();
     </div>
 
 </section>
+<!-- =========================================
+     CLIENT TESTIMONIALS
+========================================= -->
 
+<section class="client-testimonials">
+
+    <div class="container">
+
+        <!-- Section Header -->
+
+        <div class="testimonial-heading-row">
+
+            <h2 class="testimonial-title">
+                Client Testimonials
+            </h2>
+
+
+            <div class="testimonial-navigation">
+
+                <button
+                    type="button"
+                    class="testimonial-prev"
+                    aria-label="Previous testimonial"
+                >
+                    <i class="bi bi-arrow-left"></i>
+                </button>
+
+
+                <button
+                    type="button"
+                    class="testimonial-next"
+                    aria-label="Next testimonial"
+                >
+                    <i class="bi bi-arrow-right"></i>
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================
+             SWIPER
+        ================================== -->
+
+        <div class="swiper testimonial-swiper">
+
+            <div class="swiper-wrapper">
+
+
+                <!-- =============================
+                     TESTIMONIAL 1
+                ============================== -->
+
+                <div class="swiper-slide">
+
+                    <div class="testimonial-card">
+
+                        <div class="testimonial-quote-icon">
+                            <i class="bi bi-quote"></i>
+                        </div>
+
+
+                        <p class="testimonial-text">
+                            Pellentesque eu nibh eget mauris congue
+                            mattis mattis nec tellus. Phasellus imperdiet
+                            elit eu magna dictum, bibendum cursus velit
+                            sodales.
+                        </p>
+
+
+                        <div class="testimonial-bottom">
+
+                            <div class="testimonial-customer">
+
+                                <img
+                                    src="/Ecomart/assets/images/testimonials/customer-1.jpg"
+                                    alt="Robert Fox"
+                                    class="testimonial-avatar"
+                                >
+
+                                <div class="testimonial-customer-info">
+
+                                    <h4>
+                                        Robert Fox
+                                    </h4>
+
+                                    <span>
+                                        Customer
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="testimonial-stars">
+
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =============================
+                     TESTIMONIAL 2
+                ============================== -->
+
+                <div class="swiper-slide">
+
+                    <div class="testimonial-card">
+
+                        <div class="testimonial-quote-icon">
+                            <i class="bi bi-quote"></i>
+                        </div>
+
+
+                        <p class="testimonial-text">
+                            Pellentesque eu nibh eget mauris congue
+                            mattis mattis nec tellus. Phasellus imperdiet
+                            elit eu magna dictum, bibendum cursus velit
+                            sodales.
+                        </p>
+
+
+                        <div class="testimonial-bottom">
+
+                            <div class="testimonial-customer">
+
+                                <img
+                                    src="/Ecomart/assets/images/testimonials/customer-2.jpg"
+                                    alt="Jane Cooper"
+                                    class="testimonial-avatar"
+                                >
+
+                                <div class="testimonial-customer-info">
+
+                                    <h4>
+                                        Jane Cooper
+                                    </h4>
+
+                                    <span>
+                                        Customer
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="testimonial-stars">
+
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =============================
+                     TESTIMONIAL 3
+                ============================== -->
+
+                <div class="swiper-slide">
+
+                    <div class="testimonial-card">
+
+                        <div class="testimonial-quote-icon">
+                            <i class="bi bi-quote"></i>
+                        </div>
+
+
+                        <p class="testimonial-text">
+                            Pellentesque eu nibh eget mauris congue
+                            mattis mattis nec tellus. Phasellus imperdiet
+                            elit eu magna dictum, bibendum cursus velit
+                            sodales.
+                        </p>
+
+
+                        <div class="testimonial-bottom">
+
+                            <div class="testimonial-customer">
+
+                                <img
+                                    src="/Ecomart/assets/images/testimonials/customer-3.jpg"
+                                    alt="Eleanor Pena"
+                                    class="testimonial-avatar"
+                                >
+
+                                <div class="testimonial-customer-info">
+
+                                    <h4>
+                                        Eleanor Pena
+                                    </h4>
+
+                                    <span>
+                                        Customer
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="testimonial-stars">
+
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =============================
+                     TESTIMONIAL 4
+                ============================== -->
+
+                <div class="swiper-slide">
+
+                    <div class="testimonial-card">
+
+                        <div class="testimonial-quote-icon">
+                            <i class="bi bi-quote"></i>
+                        </div>
+
+
+                        <p class="testimonial-text">
+                            Pellentesque eu nibh eget mauris congue
+                            mattis mattis nec tellus. Phasellus imperdiet
+                            elit eu magna dictum, bibendum cursus velit
+                            sodales.
+                        </p>
+
+
+                        <div class="testimonial-bottom">
+
+                            <div class="testimonial-customer">
+
+                                <img
+                                    src="/Ecomart/assets/images/testimonials/customer-4.jpg"
+                                    alt="Guy Hawkins"
+                                    class="testimonial-avatar"
+                                >
+
+                                <div class="testimonial-customer-info">
+
+                                    <h4>
+                                        Guy Hawkins
+                                    </h4>
+
+                                    <span>
+                                        Customer
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="testimonial-stars">
+
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 <!-- =========================================================
      QUICK VIEW MODAL
 ========================================================= -->
