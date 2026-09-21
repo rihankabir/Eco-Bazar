@@ -282,7 +282,94 @@ $hot_sale_products = $stmt->fetchAll();
 $hot_sale_products = array_values(
     $hot_sale_products
 );
+/* festured product query */
 
+
+$featuredProductsStmt = $pdo->prepare("
+    SELECT
+        products.id,
+        products.name,
+        products.slug,
+        products.price,
+        products.discount_price,
+        products.stock,
+
+        (
+            SELECT product_images.image
+            FROM product_images
+            WHERE product_images.product_id = products.id
+            ORDER BY
+                product_images.is_primary DESC,
+                product_images.sort_order ASC,
+                product_images.id ASC
+            LIMIT 1
+        ) AS product_image,
+
+        (
+            SELECT COALESCE(AVG(product_reviews.rating), 0)
+            FROM product_reviews
+            WHERE product_reviews.product_id = products.id
+            AND product_reviews.status = 'approved'
+        ) AS average_rating,
+
+        (
+            SELECT COUNT(*)
+            FROM product_reviews
+            WHERE product_reviews.product_id = products.id
+            AND product_reviews.status = 'approved'
+        ) AS review_count
+
+    FROM products
+
+    WHERE products.status = 'active'
+    AND products.featured = 1
+
+    ORDER BY products.created_at DESC, products.id DESC
+
+    LIMIT 5
+");
+
+$featuredProductsStmt->execute();
+
+$featuredProducts = $featuredProductsStmt->fetchAll();
+
+/*latest news*/
+
+$latestNewsStmt = $pdo->prepare("
+    SELECT
+        blog_posts.id,
+        blog_posts.title,
+        blog_posts.slug,
+        blog_posts.excerpt,
+        blog_posts.featured_image,
+        blog_posts.author_name,
+        blog_posts.published_at,
+        blog_posts.created_at,
+
+        blog_categories.name AS category_name
+
+    FROM blog_posts
+
+    LEFT JOIN blog_categories
+        ON blog_categories.id = blog_posts.category_id
+
+    WHERE blog_posts.status = 'published'
+
+    AND (
+        blog_categories.status = 'active'
+        OR blog_categories.id IS NULL
+    )
+
+    ORDER BY
+        blog_posts.published_at DESC,
+        blog_posts.id ASC
+
+    LIMIT 3
+");
+
+$latestNewsStmt->execute();
+
+$latestNews = $latestNewsStmt->fetchAll();
 ?>
 <!-- =========================
      HERO / BANNER SECTION
@@ -1771,9 +1858,445 @@ $hot_sale_products = array_values(
 
 <!--discount banner end-->
 
+<!-- =========================================
+     FEATURED PRODUCTS
+========================================= -->
+
+<section class="featured-products-section">
+
+    <div class="container">
+
+        <div class="section-heading-row">
+
+            <h2 class="section-title">
+                Featured Products
+            </h2>
+
+            <a
+                href="/Ecomart/products.php?featured=1"
+                class="section-view-all"
+            >
+                View All
+                <i class="bi bi-arrow-right"></i>
+            </a>
+
+        </div>
 
 
+        <?php if (!empty($featuredProducts)): ?>
 
+            <div class="featured-products-grid">
+
+                <?php foreach ($featuredProducts as $product): ?>
+
+                    <?php
+
+                    $hasDiscount =
+                        !empty($product['discount_price']) &&
+                        (float) $product['discount_price'] > 0 &&
+                        (float) $product['discount_price'] < (float) $product['price'];
+
+                    $currentPrice = $hasDiscount
+                        ? (float) $product['discount_price']
+                        : (float) $product['price'];
+
+                    $oldPrice = (float) $product['price'];
+
+                    $discountPercent = 0;
+
+                    if ($hasDiscount && $oldPrice > 0) {
+
+                        $discountPercent = round(
+                            (($oldPrice - $currentPrice) / $oldPrice) * 100
+                        );
+
+                    }
+
+                    $averageRating = (float) $product['average_rating'];
+                    $reviewCount = (int) $product['review_count'];
+
+                    ?>
+
+                    <!-- SAME PRODUCT CARD DESIGN -->
+                    <div class="home-product-card">
+
+                        <!-- Product Image -->
+                        <div class="home-product-image-wrap">
+
+                            <?php if ($hasDiscount): ?>
+
+                                <span class="home-sale-badge">
+                                    Sale <?= $discountPercent; ?>%
+                                </span>
+
+                            <?php endif; ?>
+
+
+                            <!-- Product Actions -->
+                            <div class="home-product-actions">
+
+                                <button
+                                    type="button"
+                                    class="home-action-btn wishlist-btn"
+                                    data-product-id="<?= (int) $product['id']; ?>"
+                                    title="Add to Wishlist"
+                                >
+                                    <i class="bi bi-heart"></i>
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="home-action-btn quick-view"
+                                    data-product-id="<?= (int) $product['id']; ?>"
+                                    title="Quick View"
+                                >
+                                    <i class="bi bi-eye"></i>
+                                </button>
+
+                            </div>
+
+
+                            <!-- Product Image -->
+                            <a
+                                href="/Ecomart/product/single.php?slug=<?= urlencode($product['slug']); ?>"
+                                class="home-product-image-link"
+                            >
+
+                                <?php if (!empty($product['product_image'])): ?>
+
+                                    <img
+                                        src="/Ecomart/assets/uploads/products/<?= e($product['product_image']); ?>"
+                                        alt="<?= e($product['name']); ?>"
+                                        class="home-product-image"
+                                    >
+
+                                <?php else: ?>
+
+                                    <img
+                                        src="/Ecomart/assets/images/products/no-image.png"
+                                        alt="<?= e($product['name']); ?>"
+                                        class="home-product-image"
+                                    >
+
+                                <?php endif; ?>
+
+                            </a>
+
+                        </div>
+
+
+                        <!-- Product Information -->
+                        <div class="home-product-info">
+
+                            <div class="home-product-info-row">
+
+                                <div>
+
+                                    <h3 class="home-product-name">
+
+                                        <a
+                                            href="/Ecomart/product/single.php?slug=<?= urlencode($product['slug']); ?>"
+                                        >
+                                            <?= e($product['name']); ?>
+                                        </a>
+
+                                    </h3>
+
+
+                                    <!-- Price -->
+                                    <div class="home-product-price">
+
+                                        <span class="current-price">
+                                            $<?= number_format($currentPrice, 2); ?>
+                                        </span>
+
+
+                                        <?php if ($hasDiscount): ?>
+
+                                            <span class="old-price">
+                                                $<?= number_format($oldPrice, 2); ?>
+                                            </span>
+
+                                        <?php endif; ?>
+
+                                    </div>
+
+
+                                    <!-- Rating -->
+                                    <div class="home-product-rating">
+
+                                        <span class="rating-stars">
+
+                                            <?php for ($star = 1; $star <= 5; $star++): ?>
+
+                                                <?php if ($averageRating >= $star): ?>
+
+                                                    <i class="bi bi-star-fill"></i>
+
+                                                <?php elseif ($averageRating >= ($star - 0.5)): ?>
+
+                                                    <i class="bi bi-star-half"></i>
+
+                                                <?php else: ?>
+
+                                                    <i class="bi bi-star"></i>
+
+                                                <?php endif; ?>
+
+                                            <?php endfor; ?>
+
+                                        </span>
+
+
+                                        <span class="review-count">
+                                            (<?= $reviewCount; ?>)
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- Add To Cart -->
+                                <button
+                                    type="button"
+                                    class="home-cart-btn add-to-cart"
+                                    data-product-id="<?= (int) $product['id']; ?>"
+                                    title="Add to Cart"
+                                    <?= ((int) $product['stock'] <= 0) ? 'disabled' : ''; ?>
+                                >
+                                    <i class="bi bi-bag"></i>
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                <?php endforeach; ?>
+
+            </div>
+
+        <?php else: ?>
+
+            <div class="text-center py-4">
+                <p class="text-muted mb-0">
+                    No featured products available.
+                </p>
+            </div>
+
+        <?php endif; ?>
+
+    </div>
+
+</section>
+
+<!-- =========================================
+     LATEST NEWS
+========================================= -->
+
+<!-- =========================================
+     LATEST NEWS
+========================================= -->
+
+<section class="latest-news-section">
+
+    <div class="container">
+
+        <!-- Centered Heading -->
+        <div class="latest-news-heading">
+
+            <h2>
+                Latest News
+            </h2>
+
+        </div>
+
+
+        <?php if (!empty($latestNews)): ?>
+
+            <div class="latest-news-grid">
+
+                <?php foreach ($latestNews as $post): ?>
+
+                    <?php
+
+                    /*
+                     * Use published_at when available.
+                     * Otherwise use created_at.
+                     */
+                    $postDate = !empty($post['published_at'])
+                        ? strtotime($post['published_at'])
+                        : strtotime($post['created_at']);
+
+                    $day = date('d', $postDate);
+                    $month = strtoupper(date('M', $postDate));
+
+                    ?>
+
+                    <article class="latest-news-card">
+
+
+                        <!-- =================================
+                             IMAGE
+                        ================================== -->
+
+                        <div class="latest-news-image">
+
+                            <a
+                                href="/Ecomart/blog/single.php?slug=<?= urlencode($post['slug']); ?>"
+                            >
+
+                                <?php if (!empty($post['featured_image'])): ?>
+
+                                    <img
+                                        src="/Ecomart/assets/uploads/blog/<?= e($post['featured_image']); ?>"
+                                        alt="<?= e($post['title']); ?>"
+                                    >
+
+                                <?php else: ?>
+
+                                    <img
+                                        src="/Ecomart/assets/images/blog/no-image.png"
+                                        alt="<?= e($post['title']); ?>"
+                                    >
+
+                                <?php endif; ?>
+
+                            </a>
+
+
+                            <!-- =================================
+                                 DATE
+                            ================================== -->
+
+                            <div class="latest-news-date">
+
+                                <span class="latest-news-day">
+                                    <?= e($day); ?>
+                                </span>
+
+                                <span class="latest-news-month">
+                                    <?= e($month); ?>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================
+                             CONTENT
+                        ================================== -->
+
+                        <div class="latest-news-content">
+
+
+                            <!-- Metadata -->
+
+                            <div class="latest-news-meta">
+
+                                <!-- Category -->
+
+                                <span class="latest-news-meta-item">
+
+                                    <i class="bi bi-tag"></i>
+
+                                    <?= !empty($post['category_name'])
+                                        ? e($post['category_name'])
+                                        : 'Food';
+                                    ?>
+
+                                </span>
+
+
+                                <!-- Author -->
+
+                                <span class="latest-news-meta-item">
+
+                                    <i class="bi bi-person"></i>
+
+                                    By
+                                    <?= !empty($post['author_name'])
+                                        ? e($post['author_name'])
+                                        : 'Admin';
+                                    ?>
+
+                                </span>
+
+
+                                <!-- Comments -->
+
+                                <span class="latest-news-meta-item">
+
+                                    <i class="bi bi-chat-dots"></i>
+
+                                    0 Comments
+
+                                </span>
+
+                            </div>
+
+
+                            <!-- Title -->
+
+                            <h3 class="latest-news-title">
+
+                                <a
+                                    href="/Ecomart/blog/single.php?slug=<?= urlencode($post['slug']); ?>"
+                                >
+                                    <?= e($post['title']); ?>
+                                </a>
+
+                            </h3>
+
+
+                            <!-- Excerpt -->
+
+                            <?php if (!empty($post['excerpt'])): ?>
+
+                                <p class="latest-news-excerpt">
+                                    <?= e($post['excerpt']); ?>
+                                </p>
+
+                            <?php endif; ?>
+
+
+                            <!-- Read More -->
+
+                            <a
+                                href="/Ecomart/blog/single.php?slug=<?= urlencode($post['slug']); ?>"
+                                class="latest-news-read-more"
+                            >
+                                Read More
+                                <i class="bi bi-arrow-right"></i>
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                <?php endforeach; ?>
+
+            </div>
+
+        <?php else: ?>
+
+            <div class="text-center">
+
+                <p class="text-muted mb-0">
+                    No latest news available.
+                </p>
+
+            </div>
+
+        <?php endif; ?>
+
+    </div>
+
+</section>
 
 <!-- =========================================================
      QUICK VIEW MODAL
