@@ -1,3 +1,4 @@
+
 <!-- =========================================
      FOOTER
 ========================================= -->
@@ -7,7 +8,6 @@
 
     <!-- =====================================
          NEWSLETTER SECTION
-         Newsletter belongs to footer
     ====================================== -->
 
     <section class="footer-newsletter">
@@ -21,7 +21,7 @@
                      NEWSLETTER TEXT
                 ================================== -->
 
-                <div class="col-lg-4 col-md-5">
+                <div class="col-lg-4 col-md-4">
 
                     <div class="footer-newsletter-content">
 
@@ -53,12 +53,11 @@
 
                         <div class="footer-subscribe-box">
 
-
                             <!-- Email Icon -->
 
-                            <i
-                                class="bi bi-envelope footer-email-icon"
-                            ></i>
+                            <span class="footer-email-icon">
+                                <i class="bi bi-envelope"></i>
+                            </span>
 
 
                             <!-- Email Input -->
@@ -72,7 +71,7 @@
                             >
 
 
-                            <!-- Subscribe Button -->
+                            <!-- Subscribe -->
 
                             <button
                                 type="submit"
@@ -92,7 +91,7 @@
                      SOCIAL ICONS
                 ================================== -->
 
-                <div class="col-lg-3 col-md-2">
+                <div class="col-lg-3 col-md-3">
 
                     <div class="footer-social">
 
@@ -145,6 +144,7 @@
 
                 </div>
 
+
             </div>
 
         </div>
@@ -173,22 +173,27 @@
                     <div class="footer-about">
 
 
-                        <!-- Logo -->
+                        <!-- Footer Logo -->
 
                         <a
                             href="/Ecomart/"
                             class="footer-logo"
                         >
-                           <img src="/Ecomart/assets/images/logo/footerlogo.png">
+
+                            <img
+                                src="/Ecomart/assets/images/logo/footerlogo.png"
+                                alt="Ecomart"
+                            >
+
                         </a>
 
 
                         <!-- Description -->
 
                         <p class="footer-description">
-
-                           Morbi cursus porttitor enim lobortis molestie. Duis gravida turpis dui, eget bibendum magna congue nec.
-
+                            Morbi cursus porttitor enim lobortis molestie.
+                            Duis gravida turpis dui, eget bibendum magna
+                            congue nec.
                         </p>
 
 
@@ -197,27 +202,31 @@
                         <div class="footer-contact">
 
 
-                            <div class="footer-contact-item">
+                            <!-- Phone -->
 
-                                <strong>
-                                    +880 0000-000000
-                                </strong>
+                            <a
+                                href="tel:+880000000000"
+                                class="footer-contact-item"
+                            >
+                                +880 0000-000000
+                            </a>
 
-                            </div>
 
+                            <!-- OR -->
 
-                            <div class="footer-contact-or">
+                            <span class="footer-contact-or">
                                 or
-                            </div>
+                            </span>
 
 
-                            <div class="footer-contact-item">
+                            <!-- Email -->
 
-                                <strong>
-                                    info@ecomart.com
-                                </strong>
-
-                            </div>
+                            <a
+                                href="mailto:info@ecomart.com"
+                                class="footer-contact-item"
+                            >
+                                info@ecomart.com
+                            </a>
 
 
                         </div>
@@ -251,9 +260,7 @@
                             </li>
 
                             <li>
-                                <a
-                                    href="/Ecomart/account/index.php?tab=orders"
-                                >
+                                <a href="/Ecomart/account/index.php?tab=orders">
                                     Order History
                                 </a>
                             </li>
@@ -265,9 +272,7 @@
                             </li>
 
                             <li>
-                                <a
-                                    href="/Ecomart/account/index.php?tab=wishlist"
-                                >
+                                <a href="/Ecomart/account/index.php?tab=wishlist">
                                     Wishlist
                                 </a>
                             </li>
@@ -390,33 +395,25 @@
                         <ul>
 
                             <li>
-                                <a
-                                    href="/Ecomart/products.php?category=fresh%20fruit"
-                                >
+                                <a href="/Ecomart/products.php?category=fresh%20fruit">
                                     Fruits &amp; Vegetables
                                 </a>
                             </li>
 
                             <li>
-                                <a
-                                    href="/Ecomart/products.php?category=meat-fish"
-                                >
+                                <a href="/Ecomart/products.php?category=meat-fish">
                                     Meats &amp; Fish
                                 </a>
                             </li>
 
                             <li>
-                                <a
-                                    href="/Ecomart/products.php?category=bread-bakery"
-                                >
+                                <a href="/Ecomart/products.php?category=bread-bakery">
                                     Bread &amp; Bakery
                                 </a>
                             </li>
 
                             <li>
-                                <a
-                                    href="/Ecomart/products.php?category=beauty-health"
-                                >
+                                <a href="/Ecomart/products.php?category=beauty-health">
                                     Beauty &amp; Health
                                 </a>
                             </li>
@@ -468,42 +465,69 @@
 
                     <div class="footer-payment">
 
-
                         <div class="footer-payment-icons">
 
-                            <span class="payment-card">
-                                <img
-                    src="/Ecomart/assets/images/payment/applepay.png"
-                    alt="Ecomart apple pay"
-                >
-                            </span>
+
+                            <!-- Apple Pay -->
 
                             <span class="payment-card">
+
                                 <img
-                    src="/Ecomart/assets/images/payment/visapay.png"
-                    alt="Ecomart visapay"
-                >
+                                    src="/Ecomart/assets/images/payment/applepay.png"
+                                    alt="Apple Pay"
+                                >
+
                             </span>
 
-                            <span class="payment-card">
-                                <img
-                    src="/Ecomart/assets/images/payment/discoverpay.png"
-                    alt="Ecomart discoverpay"
-                >
-                            </span>
+
+                            <!-- Visa -->
 
                             <span class="payment-card">
+
                                 <img
-                    src="/Ecomart/assets/images/payment/mastercardpay.png"
-                    alt="Ecomart mastercardpay"
-                >
+                                    src="/Ecomart/assets/images/payment/visapay.png"
+                                    alt="Visa"
+                                >
+
                             </span>
-<span class="payment-card">
+
+
+                            <!-- Discover -->
+
+                            <span class="payment-card">
+
                                 <img
-                    src="/Ecomart/assets/images/payment/securepay.png"
-                    alt="Ecomart secure payment"
-                >
+                                    src="/Ecomart/assets/images/payment/discoverpay.png"
+                                    alt="Discover"
+                                >
+
                             </span>
+
+
+                            <!-- Mastercard -->
+
+                            <span class="payment-card">
+
+                                <img
+                                    src="/Ecomart/assets/images/payment/mastercardpay.png"
+                                    alt="Mastercard"
+                                >
+
+                            </span>
+
+
+                            <!-- Secure Payment -->
+
+                            <span class="payment-card">
+
+                                <img
+                                    src="/Ecomart/assets/images/payment/securepay.png"
+                                    alt="Secure Payment"
+                                >
+
+                            </span>
+
+
                         </div>
 
                     </div>
@@ -519,8 +543,6 @@
 
 
 </footer>
-
-
 
 <!-- =========================================
      JAVASCRIPT

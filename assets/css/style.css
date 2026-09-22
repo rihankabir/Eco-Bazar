@@ -5976,7 +5976,6 @@ gap:13px;
     }
 
 }
-
 /* =========================================================
    FOOTER
 ========================================================= */
@@ -5989,25 +5988,25 @@ gap:13px;
 
 
 /* =========================================================
-   NEWSLETTER SECTION
+   NEWSLETTER
 ========================================================= */
 
 .footer-newsletter {
     width: 100%;
-    padding: 32px 0;
+    padding: 30px 0;
 
     background: #f2f2f2;
 }
 
 
-/* Newsletter content */
+/* Newsletter text */
 
 .footer-newsletter-content {
     width: 100%;
 }
 
 .footer-newsletter-content h2 {
-    margin: 0 0 8px;
+    margin: 0 0 7px;
 
     color: #1a1a1a;
 
@@ -6027,17 +6026,23 @@ gap:13px;
     font-size: 10px;
     font-weight: 400;
 
-    line-height: 1.6;
+    line-height: 1.55;
 }
 
 
 /* =========================================================
-   NEWSLETTER INPUT
+   NEWSLETTER FORM
 ========================================================= */
 
 .footer-newsletter-form {
     width: 100%;
 }
+
+
+/*
+    This creates the single clean white
+    email + subscribe box from the design.
+*/
 
 .footer-subscribe-box {
     width: 100%;
@@ -6055,12 +6060,17 @@ gap:13px;
 }
 
 
-/* Envelope icon */
+/* Email icon */
 
 .footer-email-icon {
-    flex: 0 0 auto;
+    width: 42px;
+    height: 100%;
 
-    margin-left: 14px;
+    flex: 0 0 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     color: #999999;
 
@@ -6068,15 +6078,14 @@ gap:13px;
 }
 
 
-/* Email input */
+/* Input */
 
 .footer-email-input {
     width: 100%;
+    min-width: 0;
     height: 42px;
 
-    min-width: 0;
-
-    padding: 0 12px;
+    padding: 0 8px;
 
     border: none;
     outline: none;
@@ -6099,17 +6108,17 @@ gap:13px;
 }
 
 
-/* Subscribe button */
+/* Subscribe */
 
 .footer-subscribe-button {
-    flex: 0 0 auto;
-
     height: 44px;
+
+    flex: 0 0 auto;
 
     padding: 0 22px;
 
     border: none;
-    border-radius: 4px;
+    border-radius: 0;
 
     background: #00b207;
 
@@ -6120,19 +6129,15 @@ gap:13px;
 
     line-height: 1;
 
+    white-space: nowrap;
+
     cursor: pointer;
 
-    transition:
-        background-color 0.2s ease,
-        transform 0.2s ease;
+    transition: background-color 0.2s ease;
 }
 
 .footer-subscribe-button:hover {
     background: #009c06;
-}
-
-.footer-subscribe-button:active {
-    transform: scale(0.98);
 }
 
 
@@ -6144,11 +6149,12 @@ gap:13px;
     width: 100%;
 
     display: flex;
-
     align-items: center;
     justify-content: flex-end;
 
     gap: 8px;
+
+    white-space: nowrap;
 }
 
 .footer-social-link {
@@ -6216,23 +6222,26 @@ gap:13px;
 /* Logo */
 
 .footer-logo {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
 
     margin: 0 0 15px;
-
-    color: #ffffff;
-
-    font-size: 24px;
-    font-weight: 600;
-
-    line-height: 1;
 
     text-decoration: none;
 }
 
-.footer-logo:hover {
-    color: #00b207;
+.footer-logo img {
+    display: block;
 
+    width: auto;
+    max-width: 180px;
+    height: auto;
+    max-height: 42px;
+
+    object-fit: contain;
+}
+
+.footer-logo:hover {
     text-decoration: none;
 }
 
@@ -6246,10 +6255,10 @@ gap:13px;
 
     color: #808080;
 
-    font-size: 15px;
-    font-weight: 500;
+    font-size: 11px;
+    font-weight: 400;
 
-    line-height: 1.7;
+    line-height: 1.65;
 }
 
 
@@ -6257,39 +6266,62 @@ gap:13px;
    FOOTER CONTACT
 ========================================================= */
 
+/*
+    Phone and email stay SIDE BY SIDE
+    on desktop, with green underline.
+*/
+
 .footer-contact {
-    width: 100%;
-}
-
-.footer-contact-item {
     display: flex;
-
     align-items: center;
 
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 
-    gap: 5px;
+    width: fit-content;
+    max-width: 100%;
 
-    color: #ffffff;
-
-    font-size: 10px;
-
-    line-height: 1.5;
+    gap: 8px;
 }
 
-.footer-contact-item strong {
+
+/* Phone / Email */
+
+.footer-contact-item {
+    display: inline-block;
+
+    padding-bottom: 5px;
+
+    border-bottom: 2px solid #00b207;
+
     color: #ffffff;
 
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 500;
+
+    line-height: 1.3;
+
+    white-space: nowrap;
+
+    text-decoration: none;
 }
+
+.footer-contact-item:hover {
+    color: #ffffff;
+
+    text-decoration: none;
+}
+
+
+/* OR */
 
 .footer-contact-or {
-    margin: 3px 0;
+    flex: 0 0 auto;
 
-    color: #666666;
+    color: #808080;
 
-    font-size: 9px;
+    font-size: 10px;
+
+    line-height: 1;
 }
 
 
@@ -6306,7 +6338,7 @@ gap:13px;
 
     color: #ffffff;
 
-    font-size: 16px;
+    font-size: 13px;
     font-weight: 600;
 
     line-height: 1.3;
@@ -6330,7 +6362,7 @@ gap:13px;
 .footer-widget ul li a {
     color: #808080;
 
-    font-size: 15px;
+    font-size: 11px;
     font-weight: 400;
 
     line-height: 1.4;
@@ -6369,7 +6401,7 @@ gap:13px;
 
     color: #808080;
 
-    font-size: 15px;
+    font-size: 10px;
     font-weight: 400;
 
     line-height: 1.5;
@@ -6381,31 +6413,23 @@ gap:13px;
 ========================================================= */
 
 .footer-payment {
-    display: flex;
+    width: 100%;
 
+    display: flex;
     align-items: center;
     justify-content: flex-end;
-
-    gap: 8px;
-}
-
-.footer-payment > span {
-    color: #808080;
-
-    font-size: 9px;
 }
 
 .footer-payment-icons {
     display: flex;
-
     align-items: center;
 
-    gap: 27px;
+    gap: 6px;
 }
 
 .payment-card {
-    width: 29px;
-    height: 19px;
+    width: auto;
+    height: 22px;
 
     display: flex;
     align-items: center;
@@ -6415,45 +6439,110 @@ gap:13px;
 
     border-radius: 3px;
 
-    color: #555555;
-
-    font-size: 11px;
+    overflow: hidden;
 }
 
-.payment-card i {
-    line-height: 1;
+.payment-card img {
+    display: block;
+
+    width: auto;
+    max-width: 100%;
+    height: 22px;
+
+    object-fit: contain;
 }
 
 
 /* =========================================================
-   LARGE TABLET
+   992px+
 ========================================================= */
 
-@media (max-width: 991.98px) {
-
-
-    /* Newsletter */
-
-    .footer-newsletter {
-        padding: 30px 0;
-    }
+@media (min-width: 992px) {
 
     .footer-newsletter-content {
-        margin-bottom: 18px;
+        padding-right: 15px;
     }
 
-    .footer-newsletter-content p {
-        max-width: 500px;
+    .footer-newsletter-form {
+        padding: 0 5px;
     }
 
     .footer-social {
-        justify-content: flex-start;
+        padding-left: 10px;
+    }
 
-        margin-top: 18px;
+}
+
+
+/* =========================================================
+   768px - 991px
+========================================================= */
+
+/*
+    IMPORTANT:
+    At 768px the newsletter uses 4 + 5 + 3 columns.
+    This gives the social area enough width and prevents
+    the icons from breaking onto another line.
+*/
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+
+    .footer-newsletter {
+        padding: 28px 0;
+    }
+
+    .footer-newsletter-content h2 {
+        font-size: 16px;
+    }
+
+    .footer-newsletter-content p {
+        font-size: 9px;
+    }
+
+    .footer-subscribe-box {
+        height: 42px;
+    }
+
+    .footer-email-icon {
+        width: 36px;
+        flex-basis: 36px;
+
+        font-size: 13px;
+    }
+
+    .footer-email-input {
+        height: 40px;
+
+        padding: 0 5px;
+
+        font-size: 10px;
+    }
+
+    .footer-subscribe-button {
+        height: 42px;
+
+        padding: 0 14px;
+
+        font-size: 10px;
+    }
+
+    .footer-social {
+        gap: 4px;
+
+        justify-content: flex-end;
+    }
+
+    .footer-social-link {
+        width: 29px;
+        height: 29px;
+
+        flex-basis: 29px;
+
+        font-size: 12px;
     }
 
 
-    /* Footer main */
+    /* Main footer */
 
     .footer-main {
         padding: 38px 0 32px;
@@ -6465,19 +6554,14 @@ gap:13px;
         margin-bottom: 30px;
     }
 
-    .footer-widget {
-        margin-bottom: 25px;
-    }
-
 }
 
 
 /* =========================================================
-   TABLET
+   BELOW 768px
 ========================================================= */
 
 @media (max-width: 767.98px) {
-
 
     /* Newsletter */
 
@@ -6503,7 +6587,7 @@ gap:13px;
     }
 
 
-    /* Newsletter form */
+    /* Form */
 
     .footer-newsletter-form {
         margin-bottom: 18px;
@@ -6515,7 +6599,7 @@ gap:13px;
     .footer-social {
         justify-content: center;
 
-        margin-top: 0;
+        gap: 8px;
     }
 
 
@@ -6540,12 +6624,14 @@ gap:13px;
         margin-right: auto;
     }
 
+
+    /* Contact */
+
     .footer-contact {
-        display: flex;
+        justify-content: center;
 
-        flex-direction: column;
-
-        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
     }
 
 
@@ -6580,11 +6666,23 @@ gap:13px;
 
 
 /* =========================================================
-   SMALL MOBILE
+   576px - 767px
+========================================================= */
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+
+    .footer-contact {
+        flex-wrap: nowrap;
+    }
+
+}
+
+
+/* =========================================================
+   BELOW 576px
 ========================================================= */
 
 @media (max-width: 575.98px) {
-
 
     /* Newsletter */
 
@@ -6601,14 +6699,15 @@ gap:13px;
     }
 
 
-    /* Input */
+    /* Newsletter box */
 
     .footer-subscribe-box {
         height: 42px;
     }
 
     .footer-email-icon {
-        margin-left: 11px;
+        width: 35px;
+        flex-basis: 35px;
 
         font-size: 12px;
     }
@@ -6616,7 +6715,7 @@ gap:13px;
     .footer-email-input {
         height: 40px;
 
-        padding: 0 8px;
+        padding: 0 6px;
 
         font-size: 10px;
     }
@@ -6624,7 +6723,7 @@ gap:13px;
     .footer-subscribe-button {
         height: 42px;
 
-        padding: 0 15px;
+        padding: 0 14px;
 
         font-size: 10px;
     }
@@ -6642,19 +6741,38 @@ gap:13px;
     }
 
 
-    /* Main footer */
+    /* Footer */
 
     .footer-main {
         padding: 30px 0 20px;
     }
 
-    .footer-logo {
-        font-size: 22px;
+    .footer-logo img {
+        max-width: 160px;
+        max-height: 38px;
     }
 
     .footer-description {
+        font-size: 10px;
+    }
+
+
+    /* Contact */
+
+    .footer-contact {
+        gap: 6px;
+    }
+
+    .footer-contact-item {
         font-size: 9px;
     }
+
+    .footer-contact-or {
+        font-size: 9px;
+    }
+
+
+    /* Widgets */
 
     .footer-widget h3 {
         font-size: 11px;
@@ -6671,15 +6789,12 @@ gap:13px;
         font-size: 8px;
     }
 
-    .footer-payment > span {
-        font-size: 8px;
+    .payment-card {
+        height: 20px;
     }
 
-    .payment-card {
-        width: 27px;
-        height: 18px;
-
-        font-size: 10px;
+    .payment-card img {
+        height: 20px;
     }
 
 }
